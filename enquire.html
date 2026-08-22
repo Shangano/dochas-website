@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Enquire About Care | Dòchas Home Care</title>
+<meta name="description" content="Start a conversation about care for yourself or a loved one, or make a professional referral.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600&family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<header>
+  <div class="nav-inner">
+    <a href="index.html" class="logo" style="text-decoration:none;">
+      <img src="images/logo-icon-transparent.png" alt="Dòchas Home Care logo" class="logo-mark">
+      <span><b>Dòchas</b><span>Home Care</span></span>
+    </a>
+    <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    <nav class="primary" id="primaryNav">
+      <a href="index.html">Home</a>
+      <a href="about.html">About Us</a>
+      <a href="services.html">Our Services</a>
+      <a href="enquire.html" class="active" aria-current="page">Enquire</a>
+      <a href="speak-up.html">Speak Up</a>
+      <a href="faq.html">FAQs</a>
+      <a href="careers.html">Careers</a>
+      <a href="contact.html" class="nav-cta">Contact Us</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<section class="view active" id="enquire">
+
+  <div class="wrap" style="padding-top:56px; padding-bottom:60px;">
+    <div class="grid-2" style="align-items:flex-start; gap:50px;">
+      <div>
+        <p class="eyebrow">Start a conversation</p>
+        <h1 style="font-size:clamp(2rem,4vw,3rem);">Looking for care?</h1>
+        <p class="lead" style="color:var(--ink-soft); font-size:1.05rem;">Looking for care can feel overwhelming, especially if it's the first time you've arranged support for yourself or someone close to you. You don't need everything figured out first, an enquiry is simply the beginning of a conversation.</p>
+        <p style="color:var(--ink-soft);">You might be:</p>
+        <ul style="color:var(--ink-soft);">
+          <li>looking for care for yourself</li>
+          <li>helping a parent or relative</li>
+          <li>planning for a hospital discharge</li>
+          <li>looking for extra support as needs have changed</li>
+          <li>a social worker or care manager making a referral</li>
+          <li>simply trying to understand what's available</li>
+        </ul>
+        <div class="note-box">This form doesn't ask for detailed medical information. Anything more sensitive is collected securely at the right stage, once we've spoken.</div>
+        <h3 style="margin-top:30px;">Professional referral?</h3>
+        <p style="color:var(--ink-soft);">We welcome enquiries from social workers, care managers, healthcare professionals and local authority teams. A separate, secure referral process is available where more detail is needed.</p>
+        <a class="btn btn-ghost" href="contact.html">Make a professional referral</a>
+      </div>
+
+      <form class="form-card" onsubmit="return false;">
+        <h3 style="margin-bottom:18px;">Enquiry form</h3>
+        <div class="field-row">
+          <div class="field"><label>Your name</label><input type="text" placeholder="Full name"></div>
+          <div class="field"><label>Telephone number</label><input type="tel" placeholder="07..."></div>
+        </div>
+        <div class="field"><label>Email address</label><input type="email" placeholder="you@example.com"></div>
+        <div class="field"><label>Enquiring for yourself, or someone else?</label>
+          <select><option>Myself</option><option>A parent or relative</option><option>Someone I care for</option><option>A client (professional referral)</option></select>
+        </div>
+        <div class="field-row">
+          <div class="field"><label>Preferred way to be contacted</label><select><option>Phone</option><option>Email</option><option>Either</option></select></div>
+          <div class="field"><label>Area / postcode where care is needed</label><input type="text" placeholder="e.g. DD5"></div>
+        </div>
+        <div class="field"><label>What kind of support are you looking for?</label><textarea rows="3" placeholder="Tell us a little about what's needed..."></textarea></div>
+        <div class="field-row">
+          <div class="field"><label>When might care need to begin?</label><input type="text" placeholder="e.g. As soon as possible"></div>
+          <div class="field"><label>Anything else we should know?</label><input type="text" placeholder="Optional"></div>
+        </div>
+        <button class="btn btn-primary" style="width:100%; justify-content:center; margin-top:6px;">Send my enquiry</button>
+      </form>
+    </div>
+  </div>
+
+</section>
+</main>
+
+<footer>
+
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <div class="logo" style="color:#fff;">
+          <img src="images/logo-icon-transparent.png" alt="Dòchas Home Care logo" class="logo-mark">
+          <span style="color:#fff;"><b>Dòchas</b><span style="color:#C9E3CE;">Home Care</span></span>
+        </div>
+        <p style="font-size:.88rem; opacity:.85; max-width:32ch; margin-top:14px;">Care that fits around the person, safe, compassionate, and rooted in dignity.</p>
+      </div>
+      <div>
+        <h4>Site</h4>
+        <a href="about.html">About Us</a>
+        <a href="services.html">Our Services</a>
+        <a href="faq.html">FAQs</a>
+        <a href="careers.html">Careers</a>
+      </div>
+      <div>
+        <h4>Get support</h4>
+        <a href="enquire.html">Enquire about care</a>
+        <a href="speak-up.html">Speak up / complaints</a>
+        <a href="contact.html">Contact us</a>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <a href="tel:07309704101">07309 704101</a>
+        <a href="mailto:contact@dochashomecare.co.uk">contact@dochashomecare.co.uk</a>
+        <a>16 James Herald Terrace, Dundee, DD5 4JJ</a>
+      </div>
+    </div>
+    <div class="bottom">
+      <span>© 2026 Dòchas Home Care Limited. Registered with the Care Inspectorate.</span>
+      <span class="bottom-links"><a href="privacy-policy.html">Privacy Policy</a><span>Every visit belongs to the client.</span></span>
+    </div>
+  </div>
+
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>
