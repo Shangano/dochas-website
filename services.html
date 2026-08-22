@@ -23,11 +23,30 @@
     </button>
     <nav class="primary" id="primaryNav">
       <a href="index.html">Home</a>
-      <a href="about.html">About Us</a>
+      <div class="nav-item">
+        <a href="about.html" class="nav-parent">About Us</a>
+        <button class="nav-toggle" aria-label="Show About Us sections" aria-expanded="false"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></button>
+        <div class="nav-dropdown">
+          <a href="about.html#why-we-started">Why We Started</a>
+          <a href="about.html#founders">Meet the Founders</a>
+          <a href="about.html#what-it-means">What It Means</a>
+          <a href="about.html#logo">Our Logo</a>
+        </div>
+      </div>
+      <div class="nav-item">
+        <a href="dochas-way.html" class="nav-parent">The Dòchas Way</a>
+        <button class="nav-toggle" aria-label="Show The Dòchas Way sections" aria-expanded="false"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></button>
+        <div class="nav-dropdown">
+          <a href="dochas-way.html#principles">Our Principles</a>
+          <a href="dochas-way.html#who-we-support">Who We Support &amp; Work With</a>
+          <a href="dochas-way.html#safeguarding">Safeguarding &amp; Feedback</a>
+          <a href="dochas-way.html#our-people">Our People &amp; Inclusion</a>
+          <a href="dochas-way.html#quality">Quality &amp; Regulation</a>
+          <a href="dochas-way.html#expect">What To Expect</a>
+        </div>
+      </div>
       <a href="services.html" class="active" aria-current="page">Our Services</a>
       <a href="enquire.html">Enquire</a>
-      <a href="speak-up.html">Speak Up</a>
-      <a href="faq.html">FAQs</a>
       <a href="careers.html">Careers</a>
       <a href="contact.html" class="nav-cta">Contact Us</a>
     </nav>
@@ -44,7 +63,48 @@
     <p style="font-size:.88rem; color:var(--ink-soft);">Services depend on each person's assessed needs and what Dòchas is registered and able to provide.</p>
   </div>
 
+  <div class="band" id="who-we-support-detail">
+    <div class="wrap" style="padding:44px 28px;">
+      <p class="eyebrow">Who we support</p>
+      <h2 style="margin-bottom:26px;">People at every stage of needing a little more support</h2>
+      <div class="grid-3">
+        <div class="arch-card">
+          <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M12 21s-7-4.6-9.5-9C.5 8 2 4 6 4c2.4 0 4 1.6 6 4 2-2.4 3.6-4 6-4 4 0 5.5 4 3.5 8-2.5 4.4-9.5 9-9.5 9Z"/></svg></div>
+          <h3>Older adults</h3>
+          <p>Support to remain safe, independent and connected at home, at whatever level suits changing needs.</p>
+        </div>
+        <div class="arch-card">
+          <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M4 21v-6a3 3 0 0 1 3-3h10a3 3 0 0 1 3 3v6M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z"/></svg></div>
+          <h3>Adults with disabilities</h3>
+          <p>Person-centred support that respects independence, choice, and how someone wants to live their life.</p>
+        </div>
+        <div class="arch-card">
+          <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M12 2 3 7v6c0 5 4 9 9 9s9-4 9-9V7l-9-5Z"/></svg></div>
+          <h3>People recovering from illness or surgery</h3>
+          <p>Short or longer-term support to recover safely at home, including after a hospital stay.</p>
+        </div>
+        <div class="arch-card">
+          <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M12 8v4l3 3M12 22a10 10 0 1 0 0-20 10 10 0 0 0 0 20Z"/></svg></div>
+          <h3>People living with dementia</h3>
+          <p>Patient, familiar, reassuring support that follows routines and reduces confusion or distress.</p>
+        </div>
+        <div class="arch-card">
+          <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M17 20h5v-2a4 4 0 0 0-3-3.87M9 20H4v-2a4 4 0 0 1 3-3.87m5-4.13a4 4 0 1 0 0-8 4 4 0 0 0 0 8Zm6 0a4 4 0 1 0 0-8"/></svg></div>
+          <h3>Families &amp; unpaid carers</h3>
+          <p>Respite support that gives family carers a break, with confidence their relative is properly looked after.</p>
+        </div>
+        <div class="arch-card">
+          <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M9 12l2 2 4-4M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg></div>
+          <h3>Anyone finding daily life harder to manage</h3>
+          <p>If day-to-day tasks are becoming difficult for any reason, we're happy to talk it through, whatever the cause.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <div class="wrap" style="padding:40px 28px 60px;">
+    <p class="eyebrow">What we offer</p>
+    <h2 style="margin-bottom:26px;">Our services</h2>
     <div class="grid-3" id="servicesGrid">
       <div class="service-card"><h3>Personal Care</h3><p>Washing, showering, bathing, dressing, grooming, oral care and toileting, delivered sensitively, protecting privacy and dignity at every stage, and encouraging independence wherever it's safe to do so.</p></div>
       <div class="service-card"><h3>Support With Daily Living</h3><p>Help with the ordinary things that make the biggest difference to remaining at home, never about taking control, always about keeping everyday life manageable.</p></div>
@@ -55,6 +115,30 @@
       <div class="service-card"><h3>Community Support</h3><p>Support to access the community, attend appointments or activities, and stay connected, active and involved, home care doesn't have to mean staying inside.</p></div>
       <div class="service-card"><h3>Support Following Hospital Discharge</h3><p>Working with the person, their family, and the professionals involved to support a safe, needs-based transition back home.</p></div>
       <div class="service-card"><h3>Respite for Families</h3><p>Where appropriate, giving family members and unpaid carers time away from caring responsibilities, knowing their relative is properly supported.</p></div>
+    </div>
+  </div>
+
+  <div class="band" id="professional-support">
+    <div class="wrap" style="padding:50px 28px;">
+      <div class="grid-2">
+        <div>
+          <p class="eyebrow">Professional support</p>
+          <h2>Working alongside social workers, discharge teams &amp; healthcare professionals</h2>
+          <p style="color:var(--ink-soft);">We regularly work alongside the professionals supporting a person's wider care, and we understand what a smooth, well-communicated referral needs to look like.</p>
+          <ul style="color:var(--ink-soft);">
+            <li>Clear, timely communication throughout the referral and assessment process</li>
+            <li>Support with hospital discharge planning, on the timescales that discharge requires</li>
+            <li>Willingness to attend case conferences, reviews or multi-disciplinary meetings where appropriate</li>
+            <li>Accurate, up-to-date records and reporting in line with Care Inspectorate requirements</li>
+            <li>A point of contact who understands regulated care, not just a booking line</li>
+          </ul>
+        </div>
+        <div class="arch-card" style="text-align:left; padding:30px;">
+          <p class="eyebrow">Making a referral</p>
+          <p style="text-align:left; color:var(--ink-soft);">If you're a social worker, care manager, discharge coordinator or healthcare professional looking to arrange care for someone, we'd welcome hearing from you. A secure referral route is available where more detail is needed than a general enquiry form allows.</p>
+          <a class="btn btn-primary" href="enquire.html" style="margin-top:10px;">Make a professional referral</a>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -82,7 +166,8 @@
       </div>
       <div>
         <h4>Site</h4>
-        <a href="about.html">About Us</a>
+<a href="about.html">About Us</a>
+        <a href="dochas-way.html">The Dòchas Way</a>
         <a href="services.html">Our Services</a>
         <a href="faq.html">FAQs</a>
         <a href="careers.html">Careers</a>
@@ -107,6 +192,28 @@
   </div>
 
 </footer>
+
+<!-- Enquiry chatbot: floating button + panel (shared across every page) -->
+<button class="enquire-fab" id="enquireFab" aria-haspopup="dialog" aria-label="Start an enquiry">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+  Enquire
+</button>
+
+<div class="chat-overlay" id="chatOverlay"></div>
+
+<div class="chat-panel" id="chatPanel" role="dialog" aria-label="Enquiry chat" aria-modal="true">
+  <div class="chat-header">
+    <img src="images/logo-icon-transparent.png" alt="" style="filter:brightness(0) invert(1);">
+    <div class="chat-title">
+      <b>Dòchas Home Care</b>
+      <span>Usually replies within one working day</span>
+    </div>
+    <button class="chat-close" id="chatClose" aria-label="Close chat">
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+    </button>
+  </div>
+  <div class="chat-body" id="chatBody"></div>
+</div>
 
 <script src="js/main.js"></script>
 </body>

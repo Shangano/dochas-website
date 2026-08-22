@@ -23,11 +23,30 @@
     </button>
     <nav class="primary" id="primaryNav">
       <a href="index.html">Home</a>
-      <a href="about.html" class="active" aria-current="page">About Us</a>
+      <div class="nav-item">
+        <a href="about.html" class="nav-parent active" aria-current="page">About Us</a>
+        <button class="nav-toggle" aria-label="Show About Us sections" aria-expanded="false"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></button>
+        <div class="nav-dropdown">
+          <a href="about.html#why-we-started">Why We Started</a>
+          <a href="about.html#founders">Meet the Founders</a>
+          <a href="about.html#what-it-means">What It Means</a>
+          <a href="about.html#logo">Our Logo</a>
+        </div>
+      </div>
+      <div class="nav-item">
+        <a href="dochas-way.html" class="nav-parent">The Dòchas Way</a>
+        <button class="nav-toggle" aria-label="Show The Dòchas Way sections" aria-expanded="false"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></button>
+        <div class="nav-dropdown">
+          <a href="dochas-way.html#principles">Our Principles</a>
+          <a href="dochas-way.html#who-we-support">Who We Support &amp; Work With</a>
+          <a href="dochas-way.html#safeguarding">Safeguarding &amp; Feedback</a>
+          <a href="dochas-way.html#our-people">Our People &amp; Inclusion</a>
+          <a href="dochas-way.html#quality">Quality &amp; Regulation</a>
+          <a href="dochas-way.html#expect">What To Expect</a>
+        </div>
+      </div>
       <a href="services.html">Our Services</a>
       <a href="enquire.html">Enquire</a>
-      <a href="speak-up.html">Speak Up</a>
-      <a href="faq.html">FAQs</a>
       <a href="careers.html">Careers</a>
       <a href="contact.html" class="nav-cta">Contact Us</a>
     </nav>
@@ -37,8 +56,8 @@
 <main>
 <section class="view active" id="about">
 
-  <div class="wrap" style="padding-top:56px;">
-    <p class="eyebrow">About Dòchas</p>
+  <div class="wrap" style="padding-top:44px;" id="why-we-started">
+    <p class="eyebrow">Why we started</p>
     <h1 style="font-size:clamp(2rem,4vw,3rem);">Who we are</h1>
     <p class="lead" style="max-width:60ch; color:var(--ink-soft); font-size:1.08rem;">Dòchas Home Care is built around a simple belief: good care should never feel rushed, impersonal, or reduced to a list of tasks. We support adults in their own homes, helping them stay safe, independent, and connected to the life they know.</p>
     <p style="max-width:60ch;">Every person we support has their own routines, preferences, history and way of doing things. Our role isn't to take over, it's to work alongside them, and help them keep as much choice, independence and dignity as possible. That's the foundation of Dòchas.</p>
@@ -57,13 +76,13 @@
     </div>
   </div>
 
-  <div class="band">
+  <div class="band" id="founders">
     <div class="wrap" style="padding:56px 28px;">
       <p class="eyebrow">Founded by people who understand care</p>
       <h2 style="margin-bottom:36px;">Meet the founders</h2>
 
       <div class="founder">
-        <div class="avatar"><span>Image space<br>Annah's photo</span></div>
+        <div class="avatar" style="border-style:solid; background:none;"><img src="images/annah.jpg" alt="Photo of Annah, co-founder of Dòchas Home Care" style="width:100%;height:100%;object-fit:cover;border-radius:50% 50% 8px 8px;"></div>
         <div>
           <h3>Annah</h3>
           <p style="color:var(--ink-soft);">Annah brings extensive practical experience of care and a deep understanding of what it takes to support people properly in their own homes. Her approach is grounded in seeing the person before the task, and ensuring Dòchas has the structure and accountability to deliver that care safely.</p>
@@ -72,7 +91,7 @@
       </div>
 
       <div class="founder">
-        <div class="avatar"><span>Image space<br>Gail's photo</span></div>
+        <div class="avatar" style="border-style:solid; background:none;"><img src="images/gail.jpg" alt="Photo of Gail, co-founder of Dòchas Home Care" style="width:100%;height:100%;object-fit:cover;border-radius:50% 50% 8px 8px;"></div>
         <div>
           <h3>Gail</h3>
           <p style="color:var(--ink-soft);">Gail brings significant experience from within the care sector, and believes care must remain personal, respectful and rooted in compassion. She champions patience, consistency and genuine human connection, and believes carers should be observant enough to ask questions when something doesn't feel right.</p>
@@ -82,38 +101,52 @@
     </div>
   </div>
 
-  <div class="wrap" style="padding:56px 28px;">
-    <div class="grid-2">
-      <div class="arch-card" style="text-align:left; padding:34px;">
-        <p class="eyebrow">Our mission</p>
-        <p style="color:var(--ink-soft); text-align:left;">To provide safe, compassionate and person-centred care that enables people to live at home with dignity, independence and confidence, understanding each person as an individual, and supporting the people who provide that care to feel proud of the standards they represent.</p>
+  <div id="what-it-means">
+    <div class="wrap" style="padding:56px 28px 0;">
+      <p class="eyebrow">What Dòchas means</p>
+      <h2>Hope. Possibility. Looking forward.</h2>
+      <div class="grid-2" style="align-items:center;">
+        <div>
+          <p>For many people, care arrives at a moment when life has changed, through age, illness, reduced mobility, or a hospital discharge. We don't believe receiving care should mean life suddenly becomes smaller.</p>
+          <p>Support should help people keep living, staying connected to routines, choices, relationships and community. That sense of hope is at the heart of the name Dòchas.</p>
+        </div>
+        <div class="quote">"Every visit belongs to the client."<span>The one principle behind everything we do</span></div>
       </div>
-      <div class="arch-card" style="text-align:left; padding:34px;">
-        <p class="eyebrow">Our vision</p>
-        <p style="color:var(--ink-soft); text-align:left;">To help shape a better standard of home care, professional without becoming impersonal, compassionate without losing boundaries, safe without unnecessarily taking control away. As Dòchas grows, we stay true to why it was created: people first.</p>
+    </div>
+
+    <div class="wrap" style="padding:44px 28px;">
+      <div class="grid-2">
+        <div class="arch-card" style="text-align:left; padding:34px;">
+          <p class="eyebrow">Our mission</p>
+          <p style="color:var(--ink-soft); text-align:left;">To provide safe, compassionate and person-centred care that enables people to live at home with dignity, independence and confidence, understanding each person as an individual, and supporting the people who provide that care to feel proud of the standards they represent.</p>
+        </div>
+        <div class="arch-card" style="text-align:left; padding:34px;">
+          <p class="eyebrow">Our vision</p>
+          <p style="color:var(--ink-soft); text-align:left;">To help shape a better standard of home care, professional without becoming impersonal, compassionate without losing boundaries, safe without unnecessarily taking control away. As Dòchas grows, we stay true to why it was created: people first.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="band">
+      <div class="wrap" style="padding:56px 28px;">
+        <p class="eyebrow">The Dòchas Way</p>
+        <h2 style="margin-bottom:10px;">Every visit belongs to the client</h2>
+        <p style="max-width:60ch; color:var(--ink-soft);">Our culture, not a single policy, brought together across everyday care.</p>
+
+        <div style="margin-top:24px;">
+          <div class="value-row"><div class="n">Person-centred</div><div><p style="margin:0;">No two people are the same, so care is never delivered as though they are. We take time to understand routines, preferences, communication style, and what outcomes matter most.</p></div></div>
+          <div class="value-row"><div class="n">Dignity</div><div><p style="margin:0;">Speaking respectfully, explaining what we're doing before we do it, protecting privacy, and never forgetting that needing help doesn't make someone less entitled to choice or control.</p></div></div>
+          <div class="value-row"><div class="n">Independence</div><div><p style="margin:0;">Support is offered only where it's needed, walking alongside rather than taking over, wherever it's safe and appropriate.</p></div></div>
+          <div class="value-row"><div class="n">Choice &amp; control</div><div><p style="margin:0;">We listen, explain, and respect informed decisions, including where a person's choice involves a level of risk we help them understand.</p></div></div>
+          <div class="value-row"><div class="n">Compassion</div><div><p style="margin:0;">Paying attention. Noticing when something has changed. Understanding that a "routine" task can feel deeply personal to the person receiving it.</p></div></div>
+          <div class="value-row"><div class="n">Safety</div><div><p style="margin:0;">Following care plans, risk assessments and moving &amp; handling guidance, and encouraging staff to stop and ask if something doesn't feel right.</p></div></div>
+          <div class="value-row"><div class="n">Professionalism</div><div><p style="margin:0;">Confidentiality, honesty, reliable attendance, accurate records, and speaking up when something is wrong, because care happens inside people's private homes.</p></div></div>
+        </div>
       </div>
     </div>
   </div>
 
-  <div class="band">
-    <div class="wrap" style="padding:56px 28px;">
-      <p class="eyebrow">The Dòchas Way</p>
-      <h2 style="margin-bottom:10px;">Every visit belongs to the client</h2>
-      <p style="max-width:60ch; color:var(--ink-soft);">Our culture, not a single policy, brought together across everyday care.</p>
-
-      <div style="margin-top:24px;">
-        <div class="value-row"><div class="n">Person-centred</div><div><p style="margin:0;">No two people are the same, so care is never delivered as though they are. We take time to understand routines, preferences, communication style, and what outcomes matter most.</p></div></div>
-        <div class="value-row"><div class="n">Dignity</div><div><p style="margin:0;">Speaking respectfully, explaining what we're doing before we do it, protecting privacy, and never forgetting that needing help doesn't make someone less entitled to choice or control.</p></div></div>
-        <div class="value-row"><div class="n">Independence</div><div><p style="margin:0;">Support is offered only where it's needed, walking alongside rather than taking over, wherever it's safe and appropriate.</p></div></div>
-        <div class="value-row"><div class="n">Choice &amp; control</div><div><p style="margin:0;">We listen, explain, and respect informed decisions, including where a person's choice involves a level of risk we help them understand.</p></div></div>
-        <div class="value-row"><div class="n">Compassion</div><div><p style="margin:0;">Paying attention. Noticing when something has changed. Understanding that a "routine" task can feel deeply personal to the person receiving it.</p></div></div>
-        <div class="value-row"><div class="n">Safety</div><div><p style="margin:0;">Following care plans, risk assessments and moving &amp; handling guidance, and encouraging staff to stop and ask if something doesn't feel right.</p></div></div>
-        <div class="value-row"><div class="n">Professionalism</div><div><p style="margin:0;">Confidentiality, honesty, reliable attendance, accurate records, and speaking up when something is wrong, because care happens inside people's private homes.</p></div></div>
-      </div>
-    </div>
-  </div>
-
-  <div class="wrap" style="padding:56px 28px;">
+  <div class="wrap" style="padding:56px 28px;" id="logo">
     <p class="eyebrow">Our logo</p>
     <h2>What it represents</h2>
     <div class="grid-2" style="align-items:center;">
@@ -145,7 +178,8 @@
       </div>
       <div>
         <h4>Site</h4>
-        <a href="about.html">About Us</a>
+<a href="about.html">About Us</a>
+        <a href="dochas-way.html">The Dòchas Way</a>
         <a href="services.html">Our Services</a>
         <a href="faq.html">FAQs</a>
         <a href="careers.html">Careers</a>
@@ -170,6 +204,28 @@
   </div>
 
 </footer>
+
+<!-- Enquiry chatbot: floating button + panel (shared across every page) -->
+<button class="enquire-fab" id="enquireFab" aria-haspopup="dialog" aria-label="Start an enquiry">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+  Enquire
+</button>
+
+<div class="chat-overlay" id="chatOverlay"></div>
+
+<div class="chat-panel" id="chatPanel" role="dialog" aria-label="Enquiry chat" aria-modal="true">
+  <div class="chat-header">
+    <img src="images/logo-icon-transparent.png" alt="" style="filter:brightness(0) invert(1);">
+    <div class="chat-title">
+      <b>Dòchas Home Care</b>
+      <span>Usually replies within one working day</span>
+    </div>
+    <button class="chat-close" id="chatClose" aria-label="Close chat">
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+    </button>
+  </div>
+  <div class="chat-body" id="chatBody"></div>
+</div>
 
 <script src="js/main.js"></script>
 </body>

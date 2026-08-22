@@ -24,6 +24,7 @@ dochas-website/
 │
 ├── index.html          → Home page
 ├── about.html           → About Us
+├── dochas-way.html       → The Dòchas Way (culture, principles, safeguarding, quality & more)
 ├── services.html        → Our Services
 ├── enquire.html         → Enquire About Care (enquiry form)
 ├── speak-up.html        → Speak Up / Complaints & Feedback
@@ -92,15 +93,17 @@ If a full brand guideline (exact Pantone/hex values, approved logo files in othe
 
 ## 5. Where to add images
 
-Search `about.html` for the words **"Image space"**, these mark dashed placeholder boxes where a real photo should go: Annah's photo and Gail's photo.
+Search `about.html` for the words **"Image space"**, these mark dashed placeholder boxes where a real photo should go: Annah's photo and Gail's photo. Both are already filled in with real photos as of this build.
 
-There is already an `images/` folder inside `dochas-website/` (currently holding the logo file). To add a photo yourself:
+There is already an `images/` folder inside `dochas-website/` (currently holding the logo file plus Annah's and Gail's photos). To add a photo yourself:
 1. Save the image file into that `images/` folder.
 2. In `about.html`, find the placeholder `<div class="avatar">...</div>` and replace its contents with:
    ```html
    <img src="images/annah.jpg" alt="Photo of Annah, co-founder of Dòchas Home Care" style="width:100%;height:100%;object-fit:cover;border-radius:50% 50% 8px 8px;">
    ```
 3. Repeat for Gail's photo.
+
+`dochas-way.html` also has one remaining image placeholder, a wider rectangular box (not circular like the founder photos) in the "Equality, diversity and inclusion" section, marked with the same dashed-border style. Replace it the same way, using a normal `<img>` tag in place of the placeholder `<div class="image-placeholder">...</div>`.
 
 The logo now uses the client's real artwork (`images/logo-icon-transparent.png`), so it doesn't need to be touched unless a different version of the logo file becomes available (see Section 4).
 
@@ -135,11 +138,25 @@ Because the header/footer are duplicated across all files, do a **find-and-repla
 
 ## 7. What's NOT wired up yet (by design)
 
-- **Enquiry form** (`enquire.html`) and **Contact form** (`contact.html`) are fully styled and usable-looking, but pressing "Send" currently does nothing, there's no server to receive the submission yet. To make them work, you'll need either:
+- **Enquiry chatbot** (floating "Enquire" button, present on every page, and the launch card on `enquire.html`) walks people through a few quick questions and ends with a "Send enquiry" button. Right now, that button opens the visitor's own email app with everything pre-filled (a `mailto:` link), it does not silently send anything on your server, because this is a static site with no backend. This works today with no setup, but if you'd prefer submissions to land somewhere more structured (a shared inbox, spreadsheet, or CRM) without relying on the visitor's email client actually being set up, that needs a small backend or a service like Formspree, the same as the note below.
+- **Contact form** (`contact.html`) is fully styled and usable-looking, but pressing "Send" currently does nothing, there's no server to receive the submission yet. To make it work, you'll need either:
   - A form backend service (e.g. Formspree, Netlify Forms, GetForm), usually the quickest option, no coding required, or
   - A custom backend built by a developer that emails or stores the submissions securely.
 - **Care Inspectorate registration number** and **out-of-hours service details** are marked in the source document as still to be confirmed, search `contact.html` and `about.html` for these and add them once available.
 - **Careers vacancies**, the "View current vacancies" button currently links to the Contact page; once you have a jobs board or listing, point it there instead.
+
+---
+
+## 7a. How the enquiry chatbot works (for future edits)
+
+The floating button, overlay, and chat panel markup is duplicated near the bottom of every page (just before the `<script src="js/main.js">` line), the same pattern used for the header and footer. The actual conversation script (questions, options, and branching logic) lives in one place: the bottom of `js/main.js`, in an object called `steps`.
+
+To change a question, add a new one, or adjust the options:
+1. Open `js/main.js` and find the `const steps = {` block near the end of the file.
+2. Each step has a `bot` message, a `type` (`options`, `multiselect`, `text`, or `summary`), and a `next` function that decides which step comes after it.
+3. Editing the text or options here updates the chatbot on every page at once, no need to touch individual HTML files.
+
+The professional referral path branches automatically based on the answer to the very first question, so it asks different follow-up questions for a personal enquiry vs. a professional making a referral.
 
 ---
 

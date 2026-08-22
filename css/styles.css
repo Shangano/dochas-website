@@ -1,5 +1,5 @@
 /* ===========================================================
-   Dòchas Home Care — shared stylesheet
+   Dòchas Home Care, shared stylesheet
    Used by every page in this site.
    =========================================================== */
 
@@ -59,6 +59,20 @@
     *{animation-duration:.001ms !important; transition-duration:.001ms !important; scroll-behavior:auto !important;}
   }
 
+  /* ---------- TEXT REVEAL ANIMATION ---------- */
+  /* Applied automatically by js/main.js to headings, paragraphs and cards.
+     Starts slightly lower and transparent, settles into place on scroll. */
+  .reveal{
+    opacity:0;
+    transform:translateY(22px);
+    transition:opacity .7s cubic-bezier(.2,.7,.2,1), transform .7s cubic-bezier(.2,.7,.2,1);
+    will-change:opacity, transform;
+  }
+  .reveal.in-view{
+    opacity:1;
+    transform:translateY(0);
+  }
+
   /* ---------- HEADER ---------- */
   header{
     position:sticky; top:0; z-index:50;
@@ -92,6 +106,37 @@
   .hamburger{display:none; background:none;border:none;padding:8px;}
   .hamburger span{display:block;width:22px;height:2px;background:var(--purple-deep);margin:5px 0;}
 
+  /* ---------- NAV DROPDOWN (About Us sections) ---------- */
+  .nav-item{position:relative; display:inline-flex; align-items:center;}
+  .nav-toggle{
+    background:none; border:none; padding:6px; margin-left:-6px;
+    display:inline-flex; align-items:center; justify-content:center;
+    color:var(--ink-soft); border-radius:50%; cursor:pointer;
+  }
+  .nav-toggle:hover{background:var(--purple-tint); color:var(--purple-deep);}
+  .nav-toggle svg{transition:transform .2s ease; display:block;}
+  .nav-item:hover .nav-toggle svg,
+  .nav-item.dropdown-open .nav-toggle svg{transform:rotate(180deg);}
+  .nav-dropdown{
+    position:absolute; top:calc(100% + 8px); left:0; min-width:212px;
+    background:#fff; border:1px solid var(--line); border-radius:14px;
+    box-shadow:var(--shadow); padding:8px;
+    opacity:0; visibility:hidden; transform:translateY(-6px);
+    transition:opacity .18s ease, transform .18s ease, visibility .18s;
+    z-index:60;
+  }
+  .nav-item:hover .nav-dropdown,
+  .nav-item:focus-within .nav-dropdown,
+  .nav-item.dropdown-open .nav-dropdown{
+    opacity:1; visibility:visible; transform:translateY(0);
+  }
+  .nav-dropdown a{
+    display:block; padding:10px 12px; border-radius:9px;
+    font-size:.85rem; font-weight:600; color:var(--ink-soft);
+    text-decoration:none; margin:0;
+  }
+  .nav-dropdown a:hover{background:var(--purple-tint); color:var(--purple-deep);}
+
   @media (max-width:920px){
     nav.primary{
       position:fixed; inset:64px 0 0 0; background:var(--paper);
@@ -104,6 +149,17 @@
     text-decoration:none; display:inline-block;text-align:left; padding:14px 10px; border-radius:10px; font-size:1rem;}
     .hamburger{display:block;}
     .nav-cta{display:none;}
+
+    .nav-item{display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; width:100%;}
+    .nav-item .nav-parent{flex:1;}
+    .nav-toggle{margin-left:0;}
+    .nav-dropdown{
+      position:static; flex-basis:100%; width:100%;
+      opacity:1; visibility:visible; transform:none;
+      box-shadow:none; border:none; padding:0 0 6px 14px; min-width:0;
+      display:none;
+    }
+    .nav-item.dropdown-open .nav-dropdown{display:block;}
   }
 
   /* ---------- HERO ---------- */
@@ -223,6 +279,39 @@
     display:inline-flex; align-items:center; gap:6px;
   }
 
+  /* Long-form pages: page table-of-contents, image placeholders, principle cards */
+  .page-toc{background:var(--paper-alt); border:1px solid var(--line); border-radius:14px; padding:22px 24px; margin:28px 0;}
+  .page-toc p{margin:0 0 8px; font-weight:700; color:var(--purple-deep); font-size:.85rem; text-transform:uppercase; letter-spacing:.08em;}
+  .page-toc-links{display:grid; grid-template-columns:1fr 1fr; gap:2px 24px; margin:0; padding:0; list-style:none;}
+  @media (max-width:640px){.page-toc-links{grid-template-columns:1fr;}}
+  .page-toc-links a{color:var(--ink-soft); text-decoration:none; font-size:.9rem; line-height:2.1; display:block;}
+  .page-toc-links a:hover{color:var(--purple); text-decoration:underline;}
+
+  .image-placeholder{
+    width:100%; min-height:220px; border:2px dashed var(--purple);
+    border-radius:16px; background:var(--purple-tint);
+    display:flex; align-items:center; justify-content:center;
+    text-align:center; padding:24px; color:var(--purple-deep);
+    font-size:.85rem; font-weight:700;
+  }
+
+  .principle{
+    display:grid; grid-template-columns:56px 1fr; gap:20px;
+    padding:28px 0; border-top:1px solid var(--line);
+  }
+  .principle:last-child{border-bottom:1px solid var(--line);}
+  .principle .num{
+    width:56px; height:56px; border-radius:50%; background:var(--purple-tint);
+    color:var(--purple-deep); font-family:'Fraunces',serif; font-size:1.3rem; font-weight:600;
+    display:flex; align-items:center; justify-content:center; flex:none;
+  }
+  .principle h3{margin-bottom:8px;}
+  .principle p{color:var(--ink-soft); margin:0 0 8px;}
+  @media (max-width:560px){
+    .principle{grid-template-columns:44px 1fr; gap:14px;}
+    .principle .num{width:44px; height:44px; font-size:1.05rem;}
+  }
+
   /* FAQ */
   .faq-group{margin-bottom:34px;}
   .faq-item{border-bottom:1px solid var(--line);}
@@ -262,3 +351,97 @@
     background:#fff; border:1.5px solid var(--line); padding:9px 16px; border-radius:100px; font-size:.85rem; font-weight:600;
   }
   .tag-row button:hover{border-color:var(--purple); color:var(--purple-deep);}
+
+  /* ---------- ENQUIRY CHATBOT (floating button + chat panel) ---------- */
+  .enquire-fab{
+    position:fixed; right:22px; bottom:22px; z-index:200;
+    display:inline-flex; align-items:center; gap:9px;
+    background:var(--purple); color:#fff; border:none;
+    padding:14px 20px; border-radius:100px;
+    font-family:'Public Sans',sans-serif; font-weight:700; font-size:.92rem;
+    box-shadow:0 14px 30px -12px rgba(56,32,66,.55);
+    cursor:pointer; transition:transform .18s ease, background .18s ease;
+  }
+  .enquire-fab:hover{background:var(--purple-deep); transform:translateY(-2px);}
+  .enquire-fab svg{width:20px; height:20px; flex:none;}
+  .enquire-fab.hide{display:none;}
+
+  .chat-overlay{
+    position:fixed; inset:0; background:rgba(36,27,47,.35);
+    z-index:299; opacity:0; visibility:hidden; transition:opacity .2s ease, visibility .2s ease;
+  }
+  .chat-overlay.open{opacity:1; visibility:visible;}
+
+  .chat-panel{
+    position:fixed; right:22px; bottom:22px; z-index:300;
+    width:380px; max-width:calc(100vw - 32px); height:min(620px, calc(100vh - 100px));
+    background:var(--paper); border-radius:22px; border:1px solid var(--line);
+    box-shadow:0 28px 60px -20px rgba(36,27,47,.5);
+    display:flex; flex-direction:column; overflow:hidden;
+    transform:translateY(16px) scale(.98); opacity:0; visibility:hidden;
+    transition:transform .22s ease, opacity .22s ease, visibility .22s ease;
+  }
+  .chat-panel.open{transform:translateY(0) scale(1); opacity:1; visibility:visible;}
+  @media (max-width:560px){
+    .chat-panel{
+      right:10px; left:10px; bottom:10px; width:auto;
+      height:min(680px, calc(100vh - 20px));
+    }
+  }
+
+  .chat-header{
+    background:var(--purple-deep); color:#fff; padding:16px 18px;
+    display:flex; align-items:center; gap:10px; flex:none;
+  }
+  .chat-header img{width:30px; height:30px;}
+  .chat-header .chat-title{flex:1;}
+  .chat-header .chat-title b{display:block; font-family:'Fraunces',serif; font-size:1rem; font-weight:600;}
+  .chat-header .chat-title span{display:block; font-size:.72rem; color:#C9E3CE;}
+  .chat-close{background:none; border:none; color:#fff; opacity:.8; cursor:pointer; padding:6px;}
+  .chat-close:hover{opacity:1;}
+
+  .chat-body{flex:1; overflow-y:auto; padding:18px; display:flex; flex-direction:column; gap:12px;}
+  .chat-bubble{max-width:82%; padding:11px 15px; border-radius:16px; font-size:.9rem; line-height:1.5;}
+  .chat-bubble.bot{background:#fff; border:1px solid var(--line); color:var(--ink); align-self:flex-start; border-bottom-left-radius:4px;}
+  .chat-bubble.user{background:var(--purple); color:#fff; align-self:flex-end; border-bottom-right-radius:4px;}
+
+  .chat-options{display:flex; flex-wrap:wrap; gap:8px; align-self:flex-start; max-width:100%;}
+  .chat-options button{
+    background:#fff; border:1.5px solid var(--purple); color:var(--purple-deep);
+    padding:9px 14px; border-radius:100px; font-size:.85rem; font-weight:600; cursor:pointer;
+    transition:background .15s ease, color .15s ease;
+  }
+  .chat-options button:hover{background:var(--purple); color:#fff;}
+  .chat-options button.selected{background:var(--purple); color:#fff;}
+  .chat-options .chat-continue{background:var(--green); border-color:var(--green); color:#fff;}
+  .chat-options .chat-continue:hover{background:var(--green-deep); border-color:var(--green-deep);}
+
+  .chat-input-row{
+    flex:none; display:flex; gap:8px; padding:12px 14px; border-top:1px solid var(--line); background:#fff;
+  }
+  .chat-input-row input{
+    flex:1; border:1.5px solid var(--line); border-radius:100px; padding:10px 16px;
+    font-family:inherit; font-size:.9rem; background:var(--paper); color:var(--ink);
+  }
+  .chat-input-row input:focus{border-color:var(--purple); outline:none;}
+  .chat-input-row button{
+    background:var(--purple); color:#fff; border:none; border-radius:50%;
+    width:40px; height:40px; flex:none; display:flex; align-items:center; justify-content:center; cursor:pointer;
+  }
+  .chat-input-row button:hover{background:var(--purple-deep);}
+
+  .chat-summary{background:#fff; border:1px solid var(--line); border-radius:14px; padding:14px 16px; align-self:stretch; font-size:.85rem;}
+  .chat-summary dt{font-weight:700; color:var(--purple-deep); margin-top:8px;}
+  .chat-summary dt:first-child{margin-top:0;}
+  .chat-summary dd{margin:2px 0 0; color:var(--ink-soft);}
+
+  /* ---------- ENQUIRE PAGE: chat launch card (replaces the old static form) ---------- */
+  .chat-launch-card{
+    background:#fff; border:1px solid var(--line); border-radius:20px; padding:36px;
+    box-shadow:var(--shadow); text-align:center;
+  }
+  .chat-launch-card .icon-circle{
+    width:64px; height:64px; border-radius:50%; background:var(--purple-tint);
+    display:flex; align-items:center; justify-content:center; margin:0 auto 18px;
+  }
+  .chat-launch-card .icon-circle svg{width:30px; height:30px; stroke:var(--purple-deep);}
