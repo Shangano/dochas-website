@@ -19,38 +19,83 @@ There is **no backend, database, or server-side code**. The enquiry and contact 
 
 ## 2. Folder structure
 
+The site now has **41 pages**: a small number of "hub" pages (one per main navigation section) plus a dedicated page for every single dropdown item, so nothing sits buried halfway down a long page.
+
 ```
 dochas-website/
 │
-├── index.html          → Home page
-├── about.html           → About Us
-├── dochas-way.html       → The Dòchas Way (culture, principles, safeguarding, quality & more)
-├── services.html        → Our Services
-├── enquire.html         → Enquire About Care (enquiry form)
-├── speak-up.html        → Speak Up / Complaints & Feedback
-├── faq.html              → Frequently Asked Questions
-├── careers.html          → Careers
-├── contact.html          → Contact Us (contact form + complaints info)
-├── privacy-policy.html   → Privacy Policy (legal)
-├── sitemap.xml            → List of pages for search engines (see Section 10)
-├── robots.txt             → Crawler permissions for search engines (see Section 10)
+├── index.html                    → Home page
+│
+├── about.html                    → About Us (hub, links to the 8 pages below)
+│   ├── who-we-are.html
+│   ├── our-story.html
+│   ├── meet-the-founders.html
+│   ├── what-dochas-means.html
+│   ├── mission-and-vision.html
+│   ├── the-dochas-way.html        → simple table layout (see Section 3a)
+│   ├── quality-and-regulation.html
+│   └── the-dochas-difference.html
+│
+├── services.html                 → Our Services (hub, links to the 9 pages below)
+│   ├── personal-care.html
+│   ├── daily-living-support.html
+│   ├── meals-and-nutrition.html
+│   ├── medication-support.html
+│   ├── mobility-support.html
+│   ├── companionship.html
+│   ├── community-support.html
+│   ├── hospital-discharge-support.html
+│   └── respite-and-family-support.html
+│
+├── enquire.html                  → Arranging Care (hub + enquiry chatbot)
+│   ├── how-care-starts.html
+│   ├── care-assessment-and-planning.html
+│   ├── professional-referrals.html
+│   └── fees-and-funding.html
+│
+├── careers.html                  → Careers / Working at Dòchas (hub)
+│   ├── current-vacancies.html
+│   ├── recruitment-process.html
+│   ├── training-and-development.html
+│   └── careers-faqs.html
+│
+├── speak-up.html                 → Help & Feedback (hub)
+│   ├── raise-a-concern.html
+│   ├── make-a-complaint.html
+│   ├── safeguarding-concern.html
+│   ├── whistleblowing.html
+│   ├── report-anonymously.html
+│   ├── send-a-compliment.html
+│   └── escalation-routes.html
+│
+├── faq.html                      → Frequently Asked Questions
+├── contact.html                  → Contact Us (contact form + emergency notice)
+├── privacy-policy.html           → Privacy Policy (legal)
+├── sitemap.xml                    → List of pages for search engines (see Section 10)
+├── robots.txt                     → Crawler permissions for search engines (see Section 10)
 │
 ├── css/
-│   └── styles.css        → ALL styling for every page, in one file
+│   └── styles.css                → ALL styling for every page, in one file
 │
 ├── images/
-│   └── logo-icon-transparent.png → the real Dòchas logo mark
+│   ├── logo-icon-transparent.png  → the confirmed Dòchas logo mark
+│   ├── homepage-hero.jpg           → homepage hero photo
+│   ├── annah.jpg, gail.jpg         → founder photos
+│   ├── staff-office.jpg, staff-headshot.jpg → team photos (Careers page)
+│   └── diversity-inclusion.jpg     → equality & inclusion section photo
 │
 ├── js/
-│   └── main.js            → ALL interactivity for every page, in one file
+│   └── main.js                    → ALL interactivity for every page, in one file
 │
 └── docs/
-    └── DOCUMENTATION.md   → This file
+    └── DOCUMENTATION.md           → This file
 ```
 
-**Why split into separate pages?** Each page is now its own file, so you (or anyone helping you) can open, for example, just `services.html` to add a new service, without touching Home, Contact, or any other page. This is easier to manage and reduces the risk of accidentally breaking an unrelated page.
+**Why the change from anchors to real pages?** The site originally grouped each dropdown's content into anchored sections on one long page per topic. The client felt this put too much information in front of a visitor at once. Every dropdown item is now its own short, focused page, and each hub page (`about.html`, `services.html`, etc.) is just a brief intro plus a set of link cards to those pages, rather than the full content itself.
 
-**Why share one CSS file and one JS file?** So that a style or behaviour only has to be changed once and it updates everywhere automatically. If each page had its own copy of the styling, changing the brand colour, for example, would mean editing eight files instead of one.
+**Navigation structure:** Home | About Us▼ | Our Services▼ | Arranging Care▼ | Careers▼ | Help & Feedback▼ | FAQs | Contact Us, plus a distinct "Enquire About Care" button. Clicking a dropdown heading itself (e.g. "About Us") opens that section's hub page; each item inside the dropdown opens its own dedicated page.
+
+**Why share one CSS file and one JS file?** So that a style or behaviour only has to be changed once and it updates everywhere automatically. Since there are now many more pages, this matters even more, changing the brand colour, for example, still only means editing one file, not forty-one.
 
 ---
 
@@ -66,7 +111,26 @@ Every page follows the same skeleton:
 <script> → link to js/main.js
 ```
 
-Because there's no shared templating system, the header and footer HTML is duplicated inside each page file. This is intentional and normal for a small static site, it keeps things simple, with no build step. The trade-off is that if you change the navigation menu or footer, you need to make that change in **all eight files**. See Section 5 for how to do that efficiently.
+Because there's no shared templating system, the header and footer HTML is duplicated inside each page file. This is intentional and normal for a small static site, it keeps things simple, with no build step. The trade-off is that if you change the navigation menu or footer, you need to make that change across **all 41 files**. See Section 5 for how to do that efficiently, and consider asking a developer to set up a simple build step (or a framework like 11ty) if the page count grows much further, since hand-editing 41 files for one nav change is the main cost of this approach.
+
+---
+
+## 3a. The Dòchas Way page
+
+`the-dochas-way.html` uses a simple two-column table (label + description, divided by thin horizontal rules) rather than large illustrated cards, matching a reference design the client supplied. This is the `.way-table` / `.way-row` CSS component in `css/styles.css`. If more principles need adding later, copy an existing `.way-row` block and edit the label and description text.
+
+## 3b. Expandable "+ see more" sections
+
+A few pages (`quality-and-regulation.html`, `the-dochas-difference.html`, `professional-referrals.html`, `escalation-routes.html`) use native HTML `<details>`/`<summary>` elements, styled as a heading with a "+" that rotates when opened, to keep genuinely long content (like the full list of policy areas) collapsed until someone wants to read it. No JavaScript is needed, it's built into HTML natively, so it's simple to copy this pattern onto any other page:
+
+```html
+<details class="expand">
+  <summary><span>Section title</span><span class="plus">+</span></summary>
+  <div class="expand-body">
+    <p>Content that's hidden until clicked.</p>
+  </div>
+</details>
+```
 
 ---
 
@@ -93,17 +157,17 @@ If a full brand guideline (exact Pantone/hex values, approved logo files in othe
 
 ## 5. Where to add images
 
-Search `about.html` for the words **"Image space"**, these mark dashed placeholder boxes where a real photo should go: Annah's photo and Gail's photo. Both are already filled in with real photos as of this build.
+Search `meet-the-founders.html` for the words **"Image space"**, these mark dashed placeholder boxes where a real photo should go: Annah's photo and Gail's photo. Both are already filled in with real photos as of this build. Team photos also appear on `careers.html` (`staff-office.jpg`, `staff-headshot.jpg`).
 
-There is already an `images/` folder inside `dochas-website/` (currently holding the logo file plus Annah's and Gail's photos). To add a photo yourself:
+There is already an `images/` folder inside `dochas-website/` (currently holding the logo file, founder photos, and team photos). To add a photo yourself:
 1. Save the image file into that `images/` folder.
-2. In `about.html`, find the placeholder `<div class="avatar">...</div>` and replace its contents with:
+2. In `meet-the-founders.html`, find the placeholder `<div class="avatar">...</div>` and replace its contents with:
    ```html
    <img src="images/annah.jpg" alt="Photo of Annah, co-founder of Dòchas Home Care" style="width:100%;height:100%;object-fit:cover;border-radius:50% 50% 8px 8px;">
    ```
 3. Repeat for Gail's photo.
 
-`dochas-way.html` also has one remaining image placeholder, a wider rectangular box (not circular like the founder photos) in the "Equality, diversity and inclusion" section, marked with the same dashed-border style. Replace it the same way, using a normal `<img>` tag in place of the placeholder `<div class="image-placeholder">...</div>`.
+`about.html` also has one remaining image placeholder in its "Equality, diversity and inclusion" section, though this has already been filled in with a real photo (`images/diversity-inclusion.jpg`) as of this build.
 
 The logo now uses the client's real artwork (`images/logo-icon-transparent.png`), so it doesn't need to be touched unless a different version of the logo file becomes available (see Section 4).
 
@@ -118,30 +182,42 @@ Open that page's `.html` file in any text editor (Notepad, TextEdit, VS Code, et
 Edit `css/styles.css`. Colours are defined once at the very top of the file as named variables, for example:
 ```css
 :root{
-  --purple:#5B3568;
-  --green:#3F6B4A;
+  --purple:#532D7B;
+  --green:#2D693A;
   --paper:#FAF6F0;
   ...
 }
 ```
-Changing a value here updates it everywhere that colour is used across all eight pages.
+Changing a value here updates it everywhere that colour is used, across all 41 pages.
 
 ### Change the navigation menu or footer (appears on every page)
-Because the header/footer are duplicated across all files, do a **find-and-replace across all `.html` files** using your text editor's "Find in Files" / "Search across files" feature, rather than editing each page one by one. If you're not comfortable doing this, it's a quick, low-risk task to hand to a developer.
+Because the header/footer are duplicated across all files, do a **find-and-replace across all `.html` files** using your text editor's "Find in Files" / "Search across files" feature, rather than editing each page one by one. With 41 pages, this is the change most worth handing to a developer if you're not comfortable with bulk find-and-replace.
 
 ### Add a brand-new page
-1. Copy an existing page (e.g. `contact.html`) as a starting point.
+1. Copy an existing hub page (e.g. `careers.html`) or subpage (e.g. `raise-a-concern.html`) as a starting point, depending on whether the new page is a section landing page or a single topic.
 2. Rename it, and replace the `<main>` content with the new page's content.
-3. Add a link to it in the navigation menu (`<nav class="primary">`) **and** the footer, on every page.
+3. Add a link to it: inside the relevant dropdown (`<div class="nav-dropdown">`) in the header **and** the footer, on every page, plus a link card on the relevant hub page if it belongs under one.
 
 ---
 
 ## 7. What's NOT wired up yet (by design)
 
-- **Enquiry chatbot** (floating "Enquire" button, present on every page, and the launch card on `enquire.html`) walks people through a few quick questions and ends with a "Send enquiry" button. Right now, that button opens the visitor's own email app with everything pre-filled (a `mailto:` link), it does not silently send anything on your server, because this is a static site with no backend. This works today with no setup, but if you'd prefer submissions to land somewhere more structured (a shared inbox, spreadsheet, or CRM) without relying on the visitor's email client actually being set up, that needs a small backend or a service like Formspree, the same as the note below.
+- **Enquiry chatbot** (floating "Enquire About Care" button, present on every page, and the launch card on `enquire.html`) walks people through a few quick questions and ends with a "Send enquiry" button. Right now, that button opens the visitor's own email app with everything pre-filled (a `mailto:` link), it does not silently send anything on your server, because this is a static site with no backend. This works today with no setup, but if you'd prefer submissions to land somewhere more structured (a shared inbox, spreadsheet, or CRM) without relying on the visitor's email client actually being set up, that needs a small backend or a service like Formspree or EmailJS, the same as the note below.
 - **Contact form** (`contact.html`) is fully styled and usable-looking, but pressing "Send" currently does nothing, there's no server to receive the submission yet. To make it work, you'll need either:
   - A form backend service (e.g. Formspree, Netlify Forms, GetForm), usually the quickest option, no coding required, or
   - A custom backend built by a developer that emails or stores the submissions securely.
+
+### Items marked for Dòchas to confirm before launch (per the navigation brief)
+
+These are marked directly in the page content, in *italics inside square brackets*, wherever they appear:
+- Confirmed service area wording (currently "Dundee and the surrounding area")
+- Care Inspectorate registration details and any required registration link or badge (`quality-and-regulation.html`)
+- Whether every listed service is within Dòchas's registration, staffing and current delivery capability
+- Current vacancy requirements, including experience, driving licence and vehicle requirements by role (`current-vacancies.html`)
+- Out-of-hours contact arrangements and emergency wording (`contact.html`)
+- Final privacy wording and technical handling for anonymous reports (`report-anonymously.html`)
+- Current external complaint contact details before publication (`escalation-routes.html`)
+
 - **Care Inspectorate registration number** and **out-of-hours service details** are marked in the source document as still to be confirmed, search `contact.html` and `about.html` for these and add them once available.
 - **Careers vacancies**, the "View current vacancies" button currently links to the Contact page; once you have a jobs board or listing, point it there instead.
 

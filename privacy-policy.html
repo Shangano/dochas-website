@@ -9,22 +9,6 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600&family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/styles.css">
-<style>
-  .legal{max-width:780px;}
-  .legal h2{margin-top:44px; font-size:1.5rem;}
-  .legal h3{margin-top:26px; font-size:1.05rem;}
-  .legal p, .legal li{color:var(--ink-soft); font-size:.98rem;}
-  .legal ul{padding-left:20px;}
-  .legal table{width:100%; border-collapse:collapse; margin:18px 0; font-size:.92rem;}
-  .legal th, .legal td{text-align:left; padding:10px 12px; border:1px solid var(--line); vertical-align:top;}
-  .legal th{background:var(--purple-tint); color:var(--purple-deep); font-family:'Public Sans',sans-serif; font-weight:700;}
-  .legal .updated{font-size:.85rem; color:var(--ink-soft); margin-bottom:0;}
-  .toc{background:var(--paper-alt); border:1px solid var(--line); border-radius:14px; padding:22px 24px; margin:28px 0;}
-  .toc p{margin:0 0 8px; font-weight:700; color:var(--purple-deep); font-size:.85rem; text-transform:uppercase; letter-spacing:.08em;}
-  .toc ol{margin:0; padding-left:20px;}
-  .toc a{color:var(--ink-soft); text-decoration:none; font-size:.92rem; line-height:2;}
-  .toc a:hover{color:var(--purple); text-decoration:underline;}
-</style>
 </head>
 <body>
 
@@ -34,43 +18,90 @@
       <img src="images/logo-icon-transparent.png" alt="Dòchas Home Care logo" class="logo-mark">
       <span><b>Dòchas</b><span>Home Care</span></span>
     </a>
-    <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
-      <span></span><span></span><span></span>
-    </button>
-    <nav class="primary" id="primaryNav">
+    <div class="header-actions">
+      <nav class="primary" id="primaryNav">
       <a href="index.html">Home</a>
       <div class="nav-item">
         <a href="about.html" class="nav-parent">About Us</a>
         <button class="nav-toggle" aria-label="Show About Us sections" aria-expanded="false"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></button>
         <div class="nav-dropdown">
-          <a href="about.html#why-we-started">Why We Started</a>
-          <a href="about.html#founders">Meet the Founders</a>
-          <a href="about.html#what-it-means">What It Means</a>
-          <a href="about.html#logo">Our Logo</a>
+          <a href="who-we-are.html">Who We Are</a>
+          <a href="our-story.html">Our Story</a>
+          <a href="meet-the-founders.html">Meet Annah and Gail</a>
+          <a href="what-dochas-means.html">What Dòchas Means</a>
+          <a href="mission-and-vision.html">Mission and Vision</a>
+          <a href="the-dochas-way.html">The Dòchas Way</a>
+          <a href="quality-and-regulation.html">Quality and Regulation</a>
+          <a href="the-dochas-difference.html">The Dòchas Difference</a>
         </div>
       </div>
       <div class="nav-item">
-        <a href="dochas-way.html" class="nav-parent">The Dòchas Way</a>
-        <button class="nav-toggle" aria-label="Show The Dòchas Way sections" aria-expanded="false"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></button>
-        <div class="nav-dropdown">
-          <a href="dochas-way.html#principles">Our Principles</a>
-          <a href="dochas-way.html#who-we-support">Who We Support &amp; Work With</a>
-          <a href="dochas-way.html#safeguarding">Safeguarding &amp; Feedback</a>
-          <a href="dochas-way.html#our-people">Our People &amp; Inclusion</a>
-          <a href="dochas-way.html#quality">Quality &amp; Regulation</a>
-          <a href="dochas-way.html#expect">What To Expect</a>
+        <a href="services.html" class="nav-parent">Our Services</a>
+        <button class="nav-toggle" aria-label="Show Our Services sections" aria-expanded="false"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></button>
+        <div class="nav-dropdown wide">
+          <a href="services.html">Services Overview</a>
+          <a href="personal-care.html">Personal Care</a>
+          <a href="daily-living-support.html">Daily Living Support</a>
+          <a href="meals-and-nutrition.html">Meals and Nutrition</a>
+          <a href="medication-support.html">Medication Support</a>
+          <a href="mobility-support.html">Mobility Support</a>
+          <a href="companionship.html">Companionship</a>
+          <a href="community-support.html">Community Support</a>
+          <a href="hospital-discharge-support.html">Hospital Discharge Support</a>
+          <a href="respite-and-family-support.html">Respite and Family Support</a>
         </div>
       </div>
-      <a href="services.html">Our Services</a>
-      <a href="enquire.html">Enquire</a>
-      <a href="careers.html">Careers</a>
-      <a href="contact.html" class="nav-cta">Contact Us</a>
-    </nav>
+      <div class="nav-item">
+        <a href="enquire.html" class="nav-parent">Arranging Care</a>
+        <button class="nav-toggle" aria-label="Show Arranging Care sections" aria-expanded="false"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></button>
+        <div class="nav-dropdown">
+          <a href="enquire.html">Enquire About Care</a>
+          <a href="how-care-starts.html">How Care Starts</a>
+          <a href="care-assessment-and-planning.html">Care Assessment and Planning</a>
+          <a href="professional-referrals.html">Professional Referrals</a>
+          <a href="fees-and-funding.html">Fees and Funding</a>
+        </div>
+      </div>
+      <div class="nav-item">
+        <a href="careers.html" class="nav-parent">Careers</a>
+        <button class="nav-toggle" aria-label="Show Careers sections" aria-expanded="false"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></button>
+        <div class="nav-dropdown">
+          <a href="careers.html">Working at Dòchas</a>
+          <a href="current-vacancies.html">Current Vacancies</a>
+          <a href="recruitment-process.html">Recruitment Process</a>
+          <a href="training-and-development.html">Training and Development</a>
+          <a href="careers-faqs.html">Careers FAQs</a>
+        </div>
+      </div>
+      <div class="nav-item">
+        <a href="speak-up.html" class="nav-parent">Help &amp; Feedback</a>
+        <button class="nav-toggle" aria-label="Show Help & Feedback sections" aria-expanded="false"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></button>
+        <div class="nav-dropdown wide">
+          <a href="raise-a-concern.html">Raise a Concern</a>
+          <a href="make-a-complaint.html">Make a Formal Complaint</a>
+          <a href="safeguarding-concern.html">Report a Safeguarding Concern</a>
+          <a href="whistleblowing.html">Whistleblowing</a>
+          <a href="report-anonymously.html">Report Anonymously</a>
+          <a href="send-a-compliment.html">Send a Compliment</a>
+          <a href="escalation-routes.html">Escalation and External Routes</a>
+        </div>
+      </div>
+      <a href="faq.html">FAQs</a>
+      <a href="contact.html">Contact Us</a>
+      </nav>
+      <button class="enquire-cta-header" data-open-chat type="button">Enquire About Care</button>
+      <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+        <span class="hamburger-lines"><span></span><span></span><span></span></span>
+        <span class="hamburger-label">MENU</span>
+      </button>
+    </div>
   </div>
 </header>
 
 <main>
 <section class="view active">
+
+
   <div class="wrap" style="padding-top:56px; padding-bottom:70px;">
     <p class="eyebrow">Legal</p>
     <h1 style="font-size:clamp(2rem,4vw,2.8rem);">Privacy Policy</h1>
@@ -163,10 +194,13 @@
       <p style="margin-top:30px; font-size:.85rem;">This policy is a general-purpose template and has not been reviewed by a solicitor. Sections in <em>italics with square brackets</em> mark details that still need to be confirmed or completed before this page goes live, we'd recommend a brief review by a data protection advisor familiar with care-sector requirements before publishing.</p>
     </div>
   </div>
+
+
 </section>
 </main>
 
 <footer>
+
   <div class="wrap">
     <div class="footer-grid">
       <div>
@@ -178,16 +212,15 @@
       </div>
       <div>
         <h4>Site</h4>
-<a href="about.html">About Us</a>
-        <a href="dochas-way.html">The Dòchas Way</a>
+        <a href="about.html">About Us</a>
         <a href="services.html">Our Services</a>
         <a href="faq.html">FAQs</a>
         <a href="careers.html">Careers</a>
       </div>
       <div>
         <h4>Get support</h4>
-        <a href="enquire.html">Enquire about care</a>
-        <a href="speak-up.html">Speak up / complaints</a>
+        <a href="enquire.html">Arranging care</a>
+        <a href="speak-up.html">Help &amp; feedback</a>
         <a href="contact.html">Contact us</a>
       </div>
       <div>
@@ -198,10 +231,11 @@
       </div>
     </div>
     <div class="bottom">
-      <span>© 2026 Dòchas Home Care Limited. Registered with the Care Inspectorate.</span>
+      <span>&copy; 2026 D&ograve;chas Home Care Limited. Registered with the Care Inspectorate.</span>
       <span class="bottom-links"><a href="privacy-policy.html">Privacy Policy</a><span>Every visit belongs to the client.</span></span>
     </div>
   </div>
+
 </footer>
 
 <!-- Enquiry chatbot: floating button + panel (shared across every page) -->
