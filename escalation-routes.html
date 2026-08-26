@@ -106,21 +106,35 @@
     <p class="eyebrow">Help &amp; Feedback</p>
     <h1 style="font-size:clamp(1.9rem,4vw,2.7rem); max-width:20ch;">Escalation and External Routes</h1>
   </div>
-  <div class="wrap" style="padding-bottom:60px;">
-    <p class="lead" style="max-width:62ch; color:var(--ink-soft); font-size:1.02rem;">Unresolved matters can be escalated within Dòchas to senior management or a Director.</p>
-    <div class="arch-card" style="text-align:left; padding:22px; max-width:480px;">
-      <p style="text-align:left; margin:0; font-weight:700; color:var(--purple-deep);">Director responsible for complaints</p>
-      <p style="text-align:left; margin:2px 0 0; color:var(--ink-soft);">Annah Hogg, annahhogg@dochashomecare.com</p>
+  <div class="wrap" style="padding-bottom:24px;">
+    <p class="eyebrow" style="margin-bottom:6px;">Escalation within Dòchas</p>
+    <p class="lead" style="max-width:62ch; color:var(--ink-soft); font-size:1.02rem;">You do not lose the right to take a concern further simply because Dòchas has considered it internally. If you remain dissatisfied with the outcome, you should be given clear information about the next available route.</p>
+    <div class="step-list" style="max-width:640px;">
+      <div class="step"><div><strong>First stage</strong><p style="margin:4px 0 0; color:var(--ink-soft);">Concern or complaint raised with the appropriate manager.</p></div></div>
+      <div class="step"><div><strong>If unresolved</strong><p style="margin:4px 0 0; color:var(--ink-soft);">The matter may be escalated to senior management or a Director for further consideration.</p></div></div>
     </div>
+  </div>
 
-    <details class="expand" style="max-width:640px;">
-      <summary><span>External contacts, at any stage</span><span class="plus">+</span></summary>
-      <div class="expand-body">
-        <p><em>[Current external complaint contact details to be confirmed before publication.]</em></p>
-        <p><strong>Care Inspectorate</strong> &middot; Compass House, 11 Riverside Drive, Dundee, DD1 4NY &middot; 0345 600 9527 &middot; enquiries@careinspectorate.gov.scot</p>
-        <p>Scottish Public Services Ombudsman: Bridgeside House, 99 McDonald Road, Edinburgh, EH7 4NS &middot; 0800 377 7330</p>
+  <div class="band">
+    <div class="wrap" style="padding:40px 28px;">
+      <p class="eyebrow" style="margin-bottom:6px;">Complaining outside Dòchas</p>
+      <h2 style="max-width:60ch; margin-bottom:10px;">Taking your complaint further</h2>
+      <p style="max-width:62ch; color:var(--ink-soft);">People using registered care services also have the right to raise concerns with the appropriate external bodies.</p>
+
+      <div class="grid-2" style="margin-top:24px;">
+        <div class="arch-card" style="text-align:left; padding:24px;">
+          <p style="text-align:left; margin:0 0 8px; font-weight:700; color:var(--purple-deep);">Contacting the Care Inspectorate</p>
+          <p style="text-align:left; color:var(--ink-soft); font-size:.92rem; margin-bottom:12px;">If you are not satisfied with the outcome of your complaint, or if you prefer to raise your concern directly, you can contact the Care Inspectorate at any stage.</p>
+          <p style="text-align:left; margin:0; font-size:.92rem;">Care Inspectorate<br>Compass House<br>11 Riverside Drive<br>Dundee<br>DD1 4NY</p>
+          <p style="text-align:left; margin:10px 0 0; font-size:.92rem;">Telephone: 0345 600 9527<br>Email: enquiries@careinspectorate.gov.scot<br>Website: www.careinspectorate.com</p>
+        </div>
+        <div class="arch-card" style="text-align:left; padding:24px;">
+          <p style="text-align:left; margin:0 0 8px; font-weight:700; color:var(--purple-deep);">Scottish Public Services Ombudsman (SPSO)</p>
+          <p style="text-align:left; margin:0; font-size:.92rem;">Bridgeside House<br>99 McDonald Road<br>Edinburgh<br>EH7 4NS</p>
+          <p style="text-align:left; margin:10px 0 0; font-size:.92rem;">Telephone: 0800 377 7330<br>Website: https://www.spso.org.uk</p>
+        </div>
       </div>
-    </details>
+    </div>
   </div>
 
 
@@ -160,7 +174,7 @@
     </div>
     <div class="bottom">
       <span>&copy; 2026 D&ograve;chas Home Care Limited. Registered with the Care Inspectorate.</span>
-      <span class="bottom-links"><a href="privacy-policy.html">Privacy Policy</a><span>Every visit belongs to the client.</span></span>
+      <span class="bottom-links"><a href="privacy-policy.html">Privacy Policy</a><button class="cookie-prefs-link" id="cookiePrefsLink" type="button">Cookie Preferences</button><span>Every visit belongs to the client.</span></span>
     </div>
   </div>
 
@@ -186,6 +200,17 @@
     </button>
   </div>
   <div class="chat-body" id="chatBody"></div>
+</div>
+
+<!-- Cookie consent banner (shared across every page) -->
+<div class="cookie-banner" id="cookieBanner" role="dialog" aria-label="Cookie preferences">
+  <div class="cookie-banner-inner">
+    <p>We use only what's needed to run this site properly. We don't currently use analytics or advertising cookies, if that changes, this choice will control whether they're allowed. <a href="privacy-policy.html#cookies">Read our Privacy Policy</a></p>
+    <div class="cookie-banner-actions">
+      <button class="cookie-reject" id="cookieReject" type="button">Reject All</button>
+      <button class="cookie-accept" id="cookieAccept" type="button">Accept All</button>
+    </div>
+  </div>
 </div>
 
 <script src="js/main.js"></script>

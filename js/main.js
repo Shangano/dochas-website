@@ -448,3 +448,42 @@ if (hamburger && primaryNav) {
     if (e.key === 'Escape' && panel.classList.contains('open')) closeChat();
   });
 })();
+
+// ============================================================
+// Cookie consent banner
+// Present on every page. Currently the site sets no analytics or
+// advertising cookies, so this mainly records a visitor's choice
+// for when that changes, but "Reject All" is fully honoured now
+// and going forward: nothing non-essential loads unless accepted.
+// ============================================================
+(function () {
+  const banner = document.getElementById('cookieBanner');
+  const acceptBtn = document.getElementById('cookieAccept');
+  const rejectBtn = document.getElementById('cookieReject');
+  const prefsLink = document.getElementById('cookiePrefsLink');
+  if (!banner) return;
+
+  const STORAGE_KEY = 'dochas_cookie_consent';
+
+  function openBanner() {
+    banner.classList.add('open');
+  }
+  function closeBanner() {
+    banner.classList.remove('open');
+  }
+
+  function setConsent(value) {
+    try { localStorage.setItem(STORAGE_KEY, value); } catch (e) { /* storage unavailable, ignore */ }
+    closeBanner();
+    // When analytics is added later, check localStorage.getItem('dochas_cookie_consent')
+    // and only load the analytics script if it equals 'accepted'.
+  }
+
+  let stored = null;
+  try { stored = localStorage.getItem(STORAGE_KEY); } catch (e) { /* ignore */ }
+  if (!stored) openBanner();
+
+  if (acceptBtn) acceptBtn.addEventListener('click', () => setConsent('accepted'));
+  if (rejectBtn) rejectBtn.addEventListener('click', () => setConsent('rejected'));
+  if (prefsLink) prefsLink.addEventListener('click', openBanner);
+})();

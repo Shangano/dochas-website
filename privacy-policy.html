@@ -168,7 +168,8 @@
       <p>General website enquiries that don't proceed further are kept only as long as needed to respond, and are then deleted. Client and employment records are kept in line with Care Inspectorate and statutory retention requirements, which are typically longer, reflecting the regulated nature of care records. <em>[Insert your specific retention periods once confirmed with your registered manager/data protection lead.]</em></p>
 
       <h2 id="cookies">7. Cookies and website analytics</h2>
-      <p>This website <em>[insert: does / does not]</em> currently use analytics tools such as Google Analytics or Plausible to understand how visitors use the site (for example, which pages are viewed). <em>[If analytics is added, insert details here of which tool, what it tracks, and how visitors can opt out, along with a cookie consent banner if required.]</em> No advertising or tracking cookies are used.</p>
+      <p>This website does not currently use analytics tools such as Google Analytics, and sets no advertising or tracking cookies. A cookie banner is shown to every visitor on their first visit, giving a clear choice to Accept All or Reject All, this choice is remembered on your device and can be changed at any time using the "Cookie Preferences" link in the footer of any page.</p>
+      <p><em>[If analytics or any other non-essential cookie is added in future, this section will be updated to name the tool, explain what it tracks, and confirm it will only run for visitors who have accepted, consistent with the current UK cookie rules under PECR.]</em></p>
 
       <h2 id="security">8. How we keep it secure</h2>
       <p>We use appropriate technical and organisational measures to protect personal information, including secure storage systems, restricted staff access on a need-to-know basis, and confidentiality requirements written into staff contracts and training. Information submitted through this website is transmitted securely (HTTPS encryption).</p>
@@ -232,7 +233,7 @@
     </div>
     <div class="bottom">
       <span>&copy; 2026 D&ograve;chas Home Care Limited. Registered with the Care Inspectorate.</span>
-      <span class="bottom-links"><a href="privacy-policy.html">Privacy Policy</a><span>Every visit belongs to the client.</span></span>
+      <span class="bottom-links"><a href="privacy-policy.html">Privacy Policy</a><button class="cookie-prefs-link" id="cookiePrefsLink" type="button">Cookie Preferences</button><span>Every visit belongs to the client.</span></span>
     </div>
   </div>
 
@@ -258,6 +259,17 @@
     </button>
   </div>
   <div class="chat-body" id="chatBody"></div>
+</div>
+
+<!-- Cookie consent banner (shared across every page) -->
+<div class="cookie-banner" id="cookieBanner" role="dialog" aria-label="Cookie preferences">
+  <div class="cookie-banner-inner">
+    <p>We use only what's needed to run this site properly. We don't currently use analytics or advertising cookies, if that changes, this choice will control whether they're allowed. <a href="privacy-policy.html#cookies">Read our Privacy Policy</a></p>
+    <div class="cookie-banner-actions">
+      <button class="cookie-reject" id="cookieReject" type="button">Reject All</button>
+      <button class="cookie-accept" id="cookieAccept" type="button">Accept All</button>
+    </div>
+  </div>
 </div>
 
 <script src="js/main.js"></script>
