@@ -119,8 +119,13 @@
   .hamburger-label{font-size:.72rem; font-weight:700; letter-spacing:.06em; color:var(--purple-deep); font-family:'Public Sans',sans-serif;}
 
   /* ---------- NAV DROPDOWNS ---------- */
-  .nav-item{position:relative; display:inline-flex; align-items:stretch; border-radius:100px;}
-  .nav-item:has(.nav-parent.active){background:var(--green); overflow:hidden;}
+  .nav-item{position:relative; display:inline-flex; align-items:stretch;}
+  /* .nav-pill is a separate box from .nav-item on purpose: .nav-item also
+     holds the dropdown panel, and clipping overflow on that same box would
+     clip the dropdown itself shut. Only .nav-pill (the visual pill around
+     the link + chevron) gets the overflow:hidden that makes the pill seamless. */
+  .nav-pill{display:inline-flex; align-items:stretch; border-radius:100px;}
+  .nav-pill:has(.nav-parent.active){background:var(--green); overflow:hidden;}
   .nav-parent{
     text-decoration:none; display:inline-flex; align-items:center; white-space:nowrap;
     padding:9px 4px 9px 12px;
@@ -128,14 +133,14 @@
     transition:background .18s, color .18s;
   }
   .nav-parent:hover{background:var(--purple-tint); color:var(--purple-deep); border-radius:100px 0 0 100px;}
-  .nav-item:has(.nav-parent.active) .nav-parent{background:none; color:#fff;}
+  .nav-pill:has(.nav-parent.active) .nav-parent{background:none; color:#fff;}
   .nav-toggle{
     background:none; border:none; padding:6px; margin:auto 6px auto -6px;
     display:inline-flex; align-items:center; justify-content:center;
     color:var(--ink-soft); border-radius:50%; cursor:pointer;
   }
   .nav-toggle:hover{background:var(--purple-tint); color:var(--purple-deep);}
-  .nav-item:has(.nav-parent.active) .nav-toggle{background:none; color:#fff;}
+  .nav-pill:has(.nav-parent.active) .nav-toggle{background:none; color:#fff;}
   .nav-toggle svg{transition:transform .2s ease; display:block;}
   .nav-item:hover .nav-toggle svg,
   .nav-item.dropdown-open .nav-toggle svg{transform:rotate(180deg);}
@@ -181,6 +186,7 @@
     .hamburger{display:inline-flex;}
 
     .nav-item{display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; width:100%;}
+    .nav-pill{flex:1; justify-content:space-between;}
     .nav-item .nav-parent{flex:1;}
     .nav-toggle{margin-left:0;}
     .nav-dropdown, .nav-dropdown.wide{
