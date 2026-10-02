@@ -4,6 +4,28 @@
 // and (on faq.html) the FAQ accordion
 // ============================================================
 
+// ============================================================
+// EmailJS configuration
+// ------------------------------------------------------------
+// Fill in the three values below after setting up a free account
+// at https://www.emailjs.com — connect your inbox as an "Email
+// Service", create an "Email Template", then copy these IDs from
+// the EmailJS dashboard. Until they're filled in, the enquiry
+// chatbot and contact form fall back to opening the visitor's own
+// email app instead (the old mailto: behaviour), so nothing breaks
+// in the meantime.
+// ============================================================
+const EMAILJS_PUBLIC_KEY = 'HhBi_m43Y5w-vp2zK';
+const EMAILJS_SERVICE_ID = 'service_6a5ev4q';
+const EMAILJS_TEMPLATE_ID = 'template_teuslei';
+
+const emailjsReady = typeof emailjs !== 'undefined'
+  && EMAILJS_PUBLIC_KEY !== 'HhBi_m43Y5w-vp2zK';
+
+if (emailjsReady) {
+  emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
+}
+
 // ---- Mobile nav toggle ----
 const hamburger = document.getElementById('hamburger');
 const primaryNav = document.getElementById('primaryNav');
@@ -393,11 +415,32 @@ if (hamburger && primaryNav) {
       sendBtn.className = 'chat-continue';
       sendBtn.textContent = 'Send enquiry';
       sendBtn.addEventListener('click', () => {
-        const subject = encodeURIComponent('New enquiry from the Dòchas website');
         const lines = Object.keys(answers).map(k => k + ': ' + answers[k]);
-        const bodyText = encodeURIComponent(lines.join('\n'));
-        window.location.href = `mailto:contact@dochashomecare.co.uk?subject=${subject}&body=${bodyText}`;
-        addBubble("Thanks! Your email app should now open with everything filled in, just hit send there.", 'bot');
+        const messageBody = lines.join('\n');
+
+        if (emailjsReady) {
+          sendBtn.disabled = true;
+          sendBtn.textContent = 'Sending...';
+          emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
+            from_name: answers['Name'] || 'Website enquiry',
+            reply_to: answers['Email'] || '',
+            subject: 'New enquiry from the Dòchas website',
+            message: messageBody,
+          }).then(() => {
+            sendBtn.remove();
+            addBubble("Thanks, your enquiry has been sent! We'll be in touch soon.", 'bot');
+          }).catch(() => {
+            sendBtn.disabled = false;
+            sendBtn.textContent = 'Send enquiry';
+            addBubble("Sorry, something went wrong sending that. Please try again, or call us on 07309 704101.", 'bot');
+          });
+        } else {
+          // Fallback while EmailJS isn't configured yet: opens the visitor's own email app
+          const subject = encodeURIComponent('New enquiry from the Dòchas website');
+          const bodyText = encodeURIComponent(messageBody);
+          window.location.href = `mailto:contact@dochashomecare.co.uk?subject=${subject}&body=${bodyText}`;
+          addBubble("Thanks! Your email app should now open with everything filled in, just hit send there.", 'bot');
+        }
       });
       const restartBtn = document.createElement('button');
       restartBtn.type = 'button';
@@ -486,4 +529,65 @@ if (hamburger && primaryNav) {
   if (acceptBtn) acceptBtn.addEventListener('click', () => setConsent('accepted'));
   if (rejectBtn) rejectBtn.addEventListener('click', () => setConsent('rejected'));
   if (prefsLink) prefsLink.addEventListener('click', openBanner);
+})();
+
+// ============================================================
+// Contact form (contact.html only)
+// Sends via EmailJS once configured at the top of this file;
+// falls back to opening the visitor's own email app until then.
+// ============================================================
+(function () {
+  const form = document.getElementById('contactForm');
+  if (!form) return;
+
+  const statusEl = document.getElementById('contactFormStatus');
+  const submitBtn = document.getElementById('contactSubmitBtn');
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    const name = form.name.value.trim();
+    const phone = form.phone.value.trim();
+    const email = form.email.value.trim();
+    const reason = form.reason.value;
+    const message = form.message.value.trim();
+
+    if (!name || !email || !message) {
+      statusEl.textContent = 'Please fill in your name, email and message.';
+      statusEl.style.color = '#8C3A2F';
+      return;
+    }
+
+    const fullMessage = `Reason: ${reason}\nPhone: ${phone}\n\n${message}`;
+
+    if (emailjsReady) {
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Sending...';
+      statusEl.textContent = '';
+      emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
+        from_name: name,
+        reply_to: email,
+        subject: 'New message from the Dòchas contact form',
+        message: fullMessage,
+      }).then(() => {
+        form.reset();
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Send message';
+        statusEl.textContent = "Thanks, your message has been sent! We'll be in touch soon.";
+        statusEl.style.color = 'var(--green-deep)';
+      }).catch(() => {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Send message';
+        statusEl.textContent = 'Sorry, something went wrong. Please try again, or call us on 07309 704101.';
+        statusEl.style.color = '#8C3A2F';
+      });
+    } else {
+      // Fallback while EmailJS isn't configured yet: opens the visitor's own email app
+      const subject = encodeURIComponent('New message from the Dòchas contact form');
+      const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n${fullMessage}`);
+      window.location.href = `mailto:contact@dochashomecare.co.uk?subject=${subject}&body=${body}`;
+      statusEl.textContent = 'Your email app should now open with everything filled in, just hit send there.';
+      statusEl.style.color = 'var(--ink-soft)';
+    }
+  });
 })();

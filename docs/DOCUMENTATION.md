@@ -202,10 +202,7 @@ Because the header/footer are duplicated across all files, do a **find-and-repla
 
 ## 7. What's NOT wired up yet (by design)
 
-- **Enquiry chatbot** (floating "Enquire About Care" button, present on every page, and the launch card on `enquire.html`) walks people through a few quick questions and ends with a "Send enquiry" button. Right now, that button opens the visitor's own email app with everything pre-filled (a `mailto:` link), it does not silently send anything on your server, because this is a static site with no backend. This works today with no setup, but if you'd prefer submissions to land somewhere more structured (a shared inbox, spreadsheet, or CRM) without relying on the visitor's email client actually being set up, that needs a small backend or a service like Formspree or EmailJS, the same as the note below.
-- **Contact form** (`contact.html`) is fully styled and usable-looking, but pressing "Send" currently does nothing, there's no server to receive the submission yet. To make it work, you'll need either:
-  - A form backend service (e.g. Formspree, Netlify Forms, GetForm), usually the quickest option, no coding required, or
-  - A custom backend built by a developer that emails or stores the submissions securely.
+- **Enquiry chatbot and contact form** are both built to send via EmailJS, and will do so automatically as soon as the three placeholder values in `js/main.js` are filled in with real EmailJS credentials, see Section 7b for the exact steps. Until then, both fall back to opening the visitor's own email app with everything pre-filled (a `mailto:` link), so nothing is broken in the meantime, it's just not landing directly in an inbox yet.
 
 ### Items marked for Dòchas to confirm before launch (per the navigation brief)
 
@@ -236,10 +233,37 @@ The professional referral path branches automatically based on the answer to the
 
 ---
 
+## 7b. Connecting the enquiry chatbot and contact form to a real inbox (EmailJS)
+
+By default, both the chatbot and the contact form (`contact.html`) fall back to opening the visitor's own email app with everything pre-filled. To have submissions land directly in a real inbox instead, without needing any backend server, the site is already wired up for **EmailJS**, you just need to finish the account setup:
+
+1. Create a free account at [emailjs.com](https://www.emailjs.com).
+2. Under **Email Services**, connect the inbox you want enquiries to arrive in (Gmail, Outlook, or any other supported provider), then copy its **Service ID**.
+3. Under **Email Templates**, create a new template. It will receive these variables from the site: `{{from_name}}`, `{{reply_to}}`, `{{subject}}`, and `{{message}}` (a plain-text block containing all the enquiry answers, or the contact form's message). A simple template body works well, for example:
+   ```
+   Subject: {{subject}}
+   From: {{from_name}} ({{reply_to}})
+
+   {{message}}
+   ```
+   Copy the template's **Template ID** once saved.
+4. Under **Account → General**, copy your **Public Key**.
+5. Open `js/main.js` and find these three lines near the very top of the file:
+   ```js
+   const EMAILJS_PUBLIC_KEY = 'YOUR_PUBLIC_KEY';
+   const EMAILJS_SERVICE_ID = 'YOUR_SERVICE_ID';
+   const EMAILJS_TEMPLATE_ID = 'YOUR_TEMPLATE_ID';
+   ```
+   Replace the three placeholder values with the ones from steps 2–4.
+6. Save the file. That's it, no other changes needed. Both the chatbot's "Send enquiry" button and the contact form will now send directly to your inbox, on every page, since they all share this one file.
+
+Until these values are filled in, the site automatically keeps using the mailto: fallback, so nothing is broken in the meantime, this is a drop-in upgrade whenever you're ready. EmailJS's free tier covers 200 emails per month at the time of writing, worth checking their current pricing if the site gets busier.
+
+---
+
 ## 8. Accessibility & compatibility notes
 
 - All interactive elements (menu, accordion, buttons) are keyboard-reachable and show a visible focus outline.
-- Motion (the hero door animation) is automatically disabled for visitors who have "reduced motion" turned on in their operating system.
 - The site is responsive and has been designed to work down to small mobile screens (~360px wide) through to large desktop screens.
 - Tested against modern evergreen browsers (Chrome, Safari, Edge, Firefox). No Internet Explorer support.
 
