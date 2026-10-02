@@ -144,15 +144,15 @@
         </ul>
       </div>
 
-      <form class="form-card" onsubmit="return false;">
+      <form class="form-card" id="contactForm">
         <h3 style="margin-bottom:18px;">Contact form</h3>
         <div class="field-row">
-          <div class="field"><label>Name</label><input type="text"></div>
-          <div class="field"><label>Telephone</label><input type="tel"></div>
+          <div class="field"><label>Name</label><input type="text" name="name" required></div>
+          <div class="field"><label>Telephone</label><input type="tel" name="phone"></div>
         </div>
-        <div class="field"><label>Email</label><input type="email"></div>
+        <div class="field"><label>Email</label><input type="email" name="email" required></div>
         <div class="field"><label>Reason for contacting us</label>
-          <select>
+          <select name="reason">
             <option>I am looking for care</option>
             <option>I am an existing client</option>
             <option>I am contacting you about a family member</option>
@@ -163,8 +163,9 @@
             <option>Other</option>
           </select>
         </div>
-        <div class="field"><label>Your message</label><textarea rows="4"></textarea></div>
-        <button class="btn btn-primary" style="width:100%; justify-content:center;">Send message</button>
+        <div class="field"><label>Your message</label><textarea name="message" rows="4" required></textarea></div>
+        <button class="btn btn-primary" type="submit" id="contactSubmitBtn" style="width:100%; justify-content:center;">Send message</button>
+        <p id="contactFormStatus" style="margin:12px 0 0; font-size:.85rem;"></p>
       </form>
     </div>
   </div>
@@ -246,6 +247,7 @@
   </div>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <script src="js/main.js"></script>
 </body>
 </html>
