@@ -177,7 +177,7 @@ if (hamburger && primaryNav) {
     {group:"About Dòchas", id:"about-dochas", items:[
       ["What is Dòchas Home Care?","Dòchas is a home care provider supporting people to live as safely and independently as possible in their own homes. Our approach is built around dignity, choice, compassion, independence, safety and professional care."],
       ["What does Dòchas mean?","Dòchas is associated with hope. Needing support shouldn't mean giving up independence, identity, or the things that make life meaningful, good care should help people continue living their lives."],
-      ["Where does Dòchas provide care?","We currently provide care across Dundee and the surrounding area. If you're unsure whether we cover yours, please contact us."]
+      ["Where does Dòchas provide care?","The service is provided by one staff team located in Dundee, covering Dundee City and East Angus areas. If you're unsure whether we cover yours, please contact us."]
     ]},
     {group:"Arranging care", id:"arranging-care", items:[
       ["How do I arrange care?","Start by contacting us, by phone, email, or the enquiry form on our website. We'll talk through the support you're looking for and explain what happens next."],
