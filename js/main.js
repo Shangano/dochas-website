@@ -681,3 +681,81 @@ if (hamburger && primaryNav) {
     }, 150);
   });
 })();
+
+// ============================================================
+// Carousel: one item at a time, arrows + dots + swipe + keyboard.
+// Used on services.html and speak-up.html. Fully independent per
+// instance (a page can have more than one), guarded so it's a
+// no-op on pages with no .carousel element.
+// ============================================================
+(function () {
+  const carousels = document.querySelectorAll('.carousel');
+  if (!carousels.length) return;
+
+  carousels.forEach(carousel => {
+    const slides = Array.from(carousel.querySelectorAll('.carousel-slide'));
+    const dotsWrap = carousel.parentElement.querySelector('.carousel-dots');
+    const metaEl = carousel.parentElement.querySelector('.carousel-meta');
+    const prevBtn = carousel.parentElement.querySelector('.carousel-prev');
+    const nextBtn = carousel.parentElement.querySelector('.carousel-next');
+    if (!slides.length) return;
+
+    let current = 0;
+    let dots = [];
+
+    if (dotsWrap) {
+      slides.forEach((_, i) => {
+        const dot = document.createElement('button');
+        dot.type = 'button';
+        dot.setAttribute('aria-label', 'Go to item ' + (i + 1));
+        dot.addEventListener('click', () => goTo(i));
+        dotsWrap.appendChild(dot);
+        dots.push(dot);
+      });
+    }
+
+    function render() {
+      slides.forEach((slide, i) => {
+        slide.classList.remove('active', 'leaving');
+        if (i === current) slide.classList.add('active');
+      });
+      dots.forEach((d, i) => d.classList.toggle('active', i === current));
+      if (metaEl) metaEl.textContent = (current + 1) + ' / ' + slides.length;
+    }
+
+    function goTo(index) {
+      if (index === current) return;
+      slides[current].classList.add('leaving');
+      current = (index + slides.length) % slides.length;
+      render();
+    }
+
+    if (prevBtn) prevBtn.addEventListener('click', () => goTo(current - 1));
+    if (nextBtn) nextBtn.addEventListener('click', () => goTo(current + 1));
+
+    // Keyboard arrows when the carousel area has focus
+    carousel.setAttribute('tabindex', '0');
+    carousel.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === 'ArrowDown') { e.preventDefault(); goTo(current + 1); }
+      if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') { e.preventDefault(); goTo(current - 1); }
+    });
+
+    // Swipe support (touch)
+    let touchStartX = 0, touchStartY = 0;
+    carousel.addEventListener('touchstart', (e) => {
+      touchStartX = e.touches[0].clientX;
+      touchStartY = e.touches[0].clientY;
+    }, { passive: true });
+    carousel.addEventListener('touchend', (e) => {
+      const dx = e.changedTouches[0].clientX - touchStartX;
+      const dy = e.changedTouches[0].clientY - touchStartY;
+      if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)) {
+        goTo(current + (dx < 0 ? 1 : -1));
+      } else if (Math.abs(dy) > 40 && carousel.classList.contains('vertical')) {
+        goTo(current + (dy < 0 ? 1 : -1));
+      }
+    }, { passive: true });
+
+    render();
+  });
+})();
