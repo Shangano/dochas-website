@@ -15,12 +15,12 @@
 // email app instead (the old mailto: behaviour), so nothing breaks
 // in the meantime.
 // ============================================================
-const EMAILJS_PUBLIC_KEY = 'HhBi_m43Y5w-vp2zK';
-const EMAILJS_SERVICE_ID = 'service_6a5ev4q';
-const EMAILJS_TEMPLATE_ID = 'template_teuslei';
+const EMAILJS_PUBLIC_KEY = 'YOUR_PUBLIC_KEY';
+const EMAILJS_SERVICE_ID = 'YOUR_SERVICE_ID';
+const EMAILJS_TEMPLATE_ID = 'YOUR_TEMPLATE_ID';
 
 const emailjsReady = typeof emailjs !== 'undefined'
-  && EMAILJS_PUBLIC_KEY !== 'HhBi_m43Y5w-vp2zK';
+  && EMAILJS_PUBLIC_KEY !== 'YOUR_PUBLIC_KEY';
 
 if (emailjsReady) {
   emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
@@ -53,7 +53,7 @@ if (hamburger && primaryNav) {
   const selectors = [
     'h1', 'h2', 'h3',
     '.lead', '.eyebrow', '.quote',
-    '.arch-card', '.service-card', '.route-card',
+    '.arch-card', '.service-card', '.route-card', '.svc-card',
     '.value-row', '.step', '.founder', '.principle',
     '.form-card', '.faq-group', '.hero-strip > div'
   ];
@@ -589,5 +589,55 @@ if (hamburger && primaryNav) {
       statusEl.textContent = 'Your email app should now open with everything filled in, just hit send there.';
       statusEl.style.color = 'var(--ink-soft)';
     }
+  });
+})();
+
+// ============================================================
+// Services Overview: interactive accordion cards
+// Present only on services.html (guarded, no effect elsewhere).
+// Click a card's header to smoothly expand/collapse its full
+// description. Multiple cards can be open at once, each is
+// independent, no need to close one to open another.
+// ============================================================
+(function () {
+  const heads = document.querySelectorAll('.svc-head');
+  if (!heads.length) return;
+
+  function openBody(body) {
+    body.classList.add('open');
+    body.style.maxHeight = body.scrollHeight + 'px';
+    body.style.opacity = '1';
+  }
+  function closeBody(body) {
+    body.style.maxHeight = '0px';
+    body.style.opacity = '0';
+    body.classList.remove('open');
+  }
+
+  heads.forEach(head => {
+    const body = document.getElementById(head.getAttribute('aria-controls'));
+    if (!body) return;
+
+    head.addEventListener('click', () => {
+      const isOpen = head.getAttribute('aria-expanded') === 'true';
+      head.setAttribute('aria-expanded', String(!isOpen));
+      if (isOpen) {
+        closeBody(body);
+      } else {
+        openBody(body);
+      }
+    });
+  });
+
+  // Keep open cards correctly sized if the viewport is resized
+  // (e.g. text reflowing at a narrower width changes its height).
+  let resizeTimer;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => {
+      document.querySelectorAll('.svc-body.open').forEach(body => {
+        body.style.maxHeight = body.scrollHeight + 'px';
+      });
+    }, 150);
   });
 })();

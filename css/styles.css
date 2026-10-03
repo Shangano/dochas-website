@@ -245,11 +245,12 @@
   .band-purple .eyebrow::before{background:#C9E3CE;}
 
   /* content card */
+  /* No box, no shadow, just a clean accent border, carries content
+     without visually boxing it in. */
   .arch-card{
-    background:#fff; border:1px solid var(--line);
-    border-radius: var(--radius-card);
-    padding:30px 26px 26px; position:relative;
-    box-shadow:var(--shadow);
+    background:none; border:none; border-left:3px solid var(--green);
+    border-radius:0; padding:2px 0 2px 22px; position:relative;
+    box-shadow:none;
   }
   .arch-card .icon{
     width:52px;height:52px;border-radius:50%; background:var(--green-tint);
@@ -292,7 +293,7 @@
   .service-card p{color:var(--ink-soft); font-size:.93rem; margin:0;}
 
   /* Forms */
-  .form-card{background:#fff; border:1px solid var(--line); border-radius:20px; padding:34px; box-shadow:var(--shadow);}
+  .form-card{background:var(--paper-alt); border:none; border-radius:20px; padding:34px; box-shadow:none;}
   .field{margin-bottom:18px;}
   .field label{display:block; font-size:.82rem; font-weight:700; color:var(--purple-deep); margin-bottom:6px;}
   .field input, .field select, .field textarea{
@@ -320,7 +321,7 @@
   }
 
   /* Long-form pages: page table-of-contents, image placeholders, principle cards */
-  .page-toc{background:var(--paper-alt); border:1px solid var(--line); border-radius:14px; padding:22px 24px; margin:28px 0;}
+  .page-toc{background:var(--purple-tint); border:none; border-radius:14px; padding:22px 24px; margin:28px 0;}
   .page-toc p{margin:0 0 8px; font-weight:700; color:var(--purple-deep); font-size:.85rem; text-transform:uppercase; letter-spacing:.08em;}
   .page-toc-links{display:grid; grid-template-columns:1fr 1fr; gap:2px 24px; margin:0; padding:0; list-style:none;}
   @media (max-width:640px){.page-toc-links{grid-template-columns:1fr;}}
@@ -478,8 +479,8 @@
 
   /* ---------- ENQUIRE PAGE: chat launch card (replaces the old static form) ---------- */
   .chat-launch-card{
-    background:#fff; border:1px solid var(--line); border-radius:20px; padding:36px;
-    box-shadow:var(--shadow); text-align:center;
+    background:var(--purple-tint); border:none; border-radius:20px; padding:36px;
+    box-shadow:none; text-align:center;
   }
   .chat-launch-card .icon-circle{
     width:64px; height:64px; border-radius:50%; background:var(--purple-tint);
@@ -488,15 +489,29 @@
   .chat-launch-card .icon-circle svg{width:30px; height:30px; stroke:var(--purple-deep);}
 
   /* ---------- HUB PAGE LINK CARDS (About/Services/Arranging Care/Careers/Help hubs) ---------- */
+  /* No box, no border, no shadow, a plus-badge that flips into an
+     interactive cross on hover carries the "click for more" affordance
+     instead. */
   .hub-link-card{
-    display:flex; flex-direction:column; gap:6px; background:#fff;
-    border:1px solid var(--line); border-radius:16px; padding:22px;
-    text-decoration:none; transition:border-color .18s ease, transform .18s ease, box-shadow .18s ease;
+    display:flex; flex-direction:column; gap:6px; background:none;
+    border:none; border-radius:0; padding:2px 4px 2px 0;
+    text-decoration:none; position:relative;
+    transition:transform .18s ease;
   }
-  .hub-link-card:hover{border-color:var(--purple); transform:translateY(-2px); box-shadow:var(--shadow);}
-  .hub-link-card h3{margin:0; font-size:1.02rem;}
+  .hub-link-card::before{
+    content:"+"; display:inline-flex; align-items:center; justify-content:center;
+    width:30px; height:30px; border-radius:50%; background:var(--purple-tint);
+    color:var(--purple-deep); font-size:1.15rem; font-weight:700; line-height:1;
+    margin-bottom:8px; flex:none;
+    transition:background .2s ease, color .2s ease, transform .2s ease;
+  }
+  .hub-link-card:hover::before{background:var(--green); color:#fff; transform:rotate(90deg);}
+  .hub-link-card:hover{transform:translateX(4px);}
+  .hub-link-card h3{margin:0; font-size:1.02rem; transition:color .18s ease;}
+  .hub-link-card:hover h3{color:var(--green-deep);}
   .hub-link-card p{margin:0; color:var(--ink-soft); font-size:.88rem;}
-  .hub-link-card .go{margin-top:4px; font-size:.8rem; font-weight:700; color:var(--green-deep);}
+  .hub-link-card .go{margin-top:2px; font-size:.8rem; font-weight:700; color:var(--green-deep); opacity:0; transform:translateX(-4px); transition:opacity .18s ease, transform .18s ease;}
+  .hub-link-card:hover .go{opacity:1; transform:translateX(0);}
 
   /* ---------- BACK LINK (subpages) ---------- */
   .back-link{
@@ -563,3 +578,48 @@
   .cookie-reject:hover{border-color:var(--purple); color:var(--purple-deep);}
 
   .cookie-prefs-link{background:none; border:none; padding:0; color:inherit; text-decoration:underline; cursor:pointer; font:inherit;}
+
+  /* ---------- SERVICES OVERVIEW: interactive accordion cards ---------- */
+  .svc-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:18px;}
+  @media (max-width:880px){.svc-grid{grid-template-columns:1fr;}}
+
+  .svc-card{
+    border-radius:18px; background:var(--paper-alt); overflow:hidden;
+    transition:background .22s ease, transform .22s ease, box-shadow .22s ease;
+  }
+  .svc-card:hover{background:var(--purple-tint); transform:translateY(-3px); box-shadow:0 14px 30px -18px rgba(56,32,66,.35);}
+  .svc-card.featured{background:var(--green-tint);}
+  .svc-card.featured:hover{background:var(--green-tint); filter:brightness(0.98);}
+
+  .svc-head{
+    display:flex; align-items:flex-start; gap:14px; width:100%;
+    background:none; border:none; padding:20px; cursor:pointer; text-align:left;
+  }
+  .svc-icon{
+    width:44px; height:44px; border-radius:50%; background:var(--green-tint);
+    display:flex; align-items:center; justify-content:center; flex:none;
+    transition:background .22s ease;
+  }
+  .svc-icon svg{width:22px; height:22px; stroke:var(--green-deep); transition:stroke .22s ease;}
+  .svc-card.featured .svc-icon{background:var(--green);}
+  .svc-card.featured .svc-icon svg{stroke:#fff;}
+
+  .svc-text{flex:1; min-width:0;}
+  .svc-title{font-family:'Fraunces',serif; font-weight:600; font-size:1.04rem; color:var(--purple-deep); margin:0 0 4px;}
+  .svc-summary{font-size:.86rem; color:var(--ink-soft); margin:0; line-height:1.5;}
+
+  .svc-toggle{
+    width:30px; height:30px; border-radius:50%; background:#fff;
+    display:flex; align-items:center; justify-content:center; flex:none;
+    font-size:1.15rem; font-weight:700; color:var(--purple-deep); line-height:1;
+    transition:transform .3s ease, background .22s ease, color .22s ease;
+  }
+  .svc-head[aria-expanded="true"] .svc-toggle{transform:rotate(45deg); background:var(--green); color:#fff;}
+
+  .svc-body{max-height:0; opacity:0; overflow:hidden; transition:max-height .35s ease, opacity .28s ease;}
+  .svc-body-inner{padding:0 20px 22px 78px;}
+  .svc-body-inner p{margin:0 0 10px; color:var(--ink-soft); font-size:.9rem; line-height:1.6;}
+  .svc-body-inner p strong{color:var(--purple-deep);}
+  .svc-learn-more{font-size:.84rem; font-weight:700; color:var(--green-deep); text-decoration:none;}
+  .svc-learn-more:hover{text-decoration:underline;}
+  @media (max-width:480px){.svc-body-inner{padding-left:20px;}}
