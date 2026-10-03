@@ -53,9 +53,9 @@ if (hamburger && primaryNav) {
   const selectors = [
     'h1', 'h2', 'h3',
     '.lead', '.eyebrow', '.quote',
-    '.arch-card', '.service-card', '.route-card', '.svc-card',
+    '.arch-card', '.service-card', '.route-card', '.svc-card', '.way-card',
     '.value-row', '.step', '.founder', '.principle',
-    '.form-card', '.faq-group', '.hero-strip > div'
+    '.form-card', '.faq-group', '.hero-strip > div', '.logo-meaning-grid > div'
   ];
   const targets = document.querySelectorAll(selectors.join(','));
 
@@ -81,29 +81,72 @@ if (hamburger && primaryNav) {
   targets.forEach(el => observer.observe(el));
 })();
 
-// ---- Nav dropdown (About Us sections) ----
-// Hover handles this on desktop via CSS alone. This JS adds tap/click support
-// for touch devices and keyboards, since hover isn't reliable on mobile.
+// ---- Nav dropdown (About Us sections): staggered open, clean close ----
+// Opening (hover, focus, or tap) is handled by CSS alone, each link has its
+// own transition-delay (set in styles.css via :nth-child) so they reveal one
+// after another. This script's only job is making sure that stagger never
+// gets in the way of closing: every close path here zeroes each link's delay
+// first, so the whole dropdown disappears together instantly rather than
+// lingering item-by-item, then restores the staggered delays shortly after
+// so the next time it opens, the reveal plays again from the start.
 (function () {
   const navItems = document.querySelectorAll('.nav-item');
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function dropdownLinks(item) {
+    const dropdown = item.querySelector('.nav-dropdown');
+    return dropdown ? dropdown.querySelectorAll('a') : [];
+  }
+  function zeroDelays(item) {
+    if (reduceMotion) return; // nothing to zero, transitions are already near-instant
+    dropdownLinks(item).forEach(a => { a.style.transitionDelay = '0ms'; });
+  }
+  function restoreDelays(item) {
+    dropdownLinks(item).forEach(a => { a.style.transitionDelay = ''; });
+  }
+  function closeItem(item) {
+    zeroDelays(item);
+    item.classList.remove('dropdown-open');
+    const toggle = item.querySelector('.nav-toggle');
+    if (toggle) toggle.setAttribute('aria-expanded', 'false');
+    window.setTimeout(() => restoreDelays(item), 260);
+  }
+
   navItems.forEach(item => {
     const toggle = item.querySelector('.nav-toggle');
     if (!toggle) return;
 
+    // Tap/click toggle, used on touch devices and as a keyboard-free fallback
     toggle.addEventListener('click', (e) => {
       e.preventDefault();
-      const isOpen = item.classList.toggle('dropdown-open');
-      toggle.setAttribute('aria-expanded', isOpen);
+      const isOpen = item.classList.contains('dropdown-open');
+      if (isOpen) {
+        closeItem(item);
+      } else {
+        restoreDelays(item);
+        item.classList.add('dropdown-open');
+        toggle.setAttribute('aria-expanded', 'true');
+      }
     });
+
+    // Desktop hover: make sure a fresh stagger is ready to go each time the
+    // pointer arrives, and clean up the moment it leaves.
+    item.addEventListener('mouseenter', () => restoreDelays(item));
+    item.addEventListener('mouseleave', () => {
+      zeroDelays(item);
+      window.setTimeout(() => restoreDelays(item), 260);
+    });
+
+    // Keyboard: focus entering the item (Tab) gets a fresh stagger too,
+    // since :focus-within is what reveals the dropdown for keyboard users.
+    item.addEventListener('focusin', () => restoreDelays(item));
   });
 
   // Close any open dropdown when clicking elsewhere on the page
   document.addEventListener('click', (e) => {
     navItems.forEach(item => {
-      if (!item.contains(e.target)) {
-        item.classList.remove('dropdown-open');
-        const toggle = item.querySelector('.nav-toggle');
-        if (toggle) toggle.setAttribute('aria-expanded', 'false');
+      if (!item.contains(e.target) && item.classList.contains('dropdown-open')) {
+        closeItem(item);
       }
     });
   });
@@ -112,7 +155,7 @@ if (hamburger && primaryNav) {
   document.querySelectorAll('.nav-dropdown a').forEach(link => {
     link.addEventListener('click', () => {
       const item = link.closest('.nav-item');
-      if (item) item.classList.remove('dropdown-open');
+      if (item) closeItem(item);
     });
   });
 
@@ -121,12 +164,9 @@ if (hamburger && primaryNav) {
     if (e.key !== 'Escape') return;
     navItems.forEach(item => {
       if (item.classList.contains('dropdown-open')) {
-        item.classList.remove('dropdown-open');
+        closeItem(item);
         const toggle = item.querySelector('.nav-toggle');
-        if (toggle) {
-          toggle.setAttribute('aria-expanded', 'false');
-          toggle.focus();
-        }
+        if (toggle) toggle.focus();
       }
     });
   });
