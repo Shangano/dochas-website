@@ -3,7 +3,6 @@
    Used by every page in this site.
    =========================================================== */
 
-
   :root{
     --ink:#241B2F;
     --ink-soft:#4A3F52;
@@ -42,16 +41,21 @@
   h3{font-size:1.25rem; font-weight:600; color:var(--purple);}
   p{margin:0 0 1em;}
   a{color:inherit;}
+  /* The dash-label ("— ABOUT US") is the main heading of its block: big and
+     bold. Any h1/h2/h3 directly beneath it is the quieter line, see the
+     ".eyebrow + h1/h2/h3" rule further down. */
   .eyebrow{
     font-family:'Public Sans',sans-serif;
     text-transform:uppercase;
-    letter-spacing:.12em;
-    font-size:.86rem;
+    letter-spacing:.03em;
+    font-size:clamp(1.3rem, 3vw, 1.7rem);
     font-weight:800;
+    line-height:1.2;
     color:var(--green-deep);
+    margin-bottom:8px;
     display:flex; align-items:center; gap:.5em;
   }
-  .eyebrow::before{content:"";width:22px;height:1px;background:var(--green);display:inline-block;}
+  .eyebrow::before{content:"";width:30px;height:2px;background:var(--green);display:inline-block;flex:none;}
   .wrap{max-width:1120px;margin:0 auto;padding:0 28px;}
   button{font-family:inherit;cursor:pointer;}
   :focus-visible{outline:2.5px solid var(--gold); outline-offset:3px;}
@@ -240,21 +244,23 @@
   .hero-grid{display:grid; grid-template-columns:1.05fr .95fr; gap:48px; align-items:center;}
   @media (max-width:880px){.hero-grid{grid-template-columns:1fr;}}
   .hero .eyebrow{margin-bottom:18px;}
-  /* Page-top pattern only (eyebrow immediately followed by the page's h1):
-     the section label reads as the dominant heading, the page's own title
-     becomes the smaller line underneath it. Doesn't touch .eyebrow used
-     before h2/h3 elsewhere on a page, e.g. inside cards or bands. */
-  .eyebrow:has(+ h1){
-    font-size:clamp(1.3rem, 3vw, 1.7rem);
-    letter-spacing:.03em;
-    margin-bottom:6px;
-  }
-  .eyebrow:has(+ h1)::before{width:30px;}
-  .eyebrow + h1{
+  /* Whatever heading sits directly beneath a dash-label is the quieter line.
+     !important because many headings carry their own inline font-size. */
+  .eyebrow + h1, .eyebrow + h2, .eyebrow + h3{
     font-size:clamp(1.1rem, 2.2vw, 1.3rem) !important;
     font-family:'Fraunces',serif;
     font-weight:500;
+    line-height:1.35;
     color:var(--ink-soft);
+  }
+  .eyebrow + h1{margin-bottom:14px;}
+  .band-purple .eyebrow + h2{color:#fff;}
+  /* ".arch-card p" would otherwise shrink and grey-out labels inside accent
+     blocks (Our mission, Our vision, Make a referral). */
+  .arch-card p.eyebrow{
+    font-size:clamp(1.3rem, 3vw, 1.7rem);
+    color:var(--green-deep);
+    text-align:left;
   }
   .hero p.lead{font-size:1.15rem; color:var(--ink-soft); max-width:46ch;}
   .hero-actions{display:flex; gap:14px; flex-wrap:wrap; margin-top:22px;}
@@ -273,13 +279,13 @@
   }
   .hero-photo img{width:100%; height:100%; object-fit:cover; display:block;}
 
-  .hero-strip{display:flex; flex-wrap:wrap; gap:28px; margin-top:52px; padding-top:26px; border-top:1px solid var(--line);}
-  .hero-strip div{font-size:.86rem; color:var(--ink-soft); max-width:230px;}
-  .hero-strip strong{display:block; font-family:'Fraunces',serif; color:var(--purple-deep); font-size:1.02rem; font-weight:500;}
+  
+  
+  
 
   /* ---------- SECTION GENERIC ---------- */
   section.view{padding:64px 0;}
-  .section-head{max-width:640px; margin-bottom:40px;}
+  
   .band{background:var(--paper-alt); border-top:1px solid var(--line); border-bottom:1px solid var(--line);}
   .band-purple{background:var(--purple-deep); color:#EFE3F0;}
   .band-purple h2, .band-purple h3{color:#fff;}
@@ -294,11 +300,8 @@
     border-radius:0; padding:2px 0 2px 22px; position:relative;
     box-shadow:none;
   }
-  .arch-card .icon{
-    width:52px;height:52px;border-radius:50%; background:var(--green-tint);
-    display:flex;align-items:center;justify-content:center; margin:0 auto 16px;
-  }
-  .arch-card .icon svg{width:26px;height:26px;stroke:var(--green-deep);}
+  
+  
   .arch-card h3{text-align:center;}
   .arch-card p{text-align:center; color:var(--ink-soft); font-size:.94rem;}
 
@@ -313,10 +316,10 @@
   }
   .quote span{display:block; font-family:'Public Sans',sans-serif; font-size:.8rem; text-transform:uppercase; letter-spacing:.1em; color:var(--ink-soft); margin-top:10px; font-weight:700;}
 
-  .value-row{display:flex; gap:20px; padding:22px 0; border-bottom:1px solid var(--line); align-items:flex-start;}
-  .value-row:first-of-type{border-top:1px solid var(--line);}
-  .value-row .n{font-family:'Fraunces',serif; font-size:1.05rem; color:var(--green-deep); width:150px; flex:none; font-weight:600;}
-  @media (max-width:700px){.value-row{flex-direction:column; gap:6px;}.value-row .n{width:auto;}}
+  
+  
+  
+  
 
   .founder{display:grid; grid-template-columns:180px 1fr; gap:26px; align-items:flex-start; margin-bottom:44px;}
   @media (max-width:600px){.founder{grid-template-columns:1fr;}}
@@ -327,12 +330,9 @@
   }
   .avatar span{font-size:.78rem; font-weight:700; color:var(--purple-deep); letter-spacing:.02em;}
 
-  .service-card{
-    background:#fff; border:1px solid var(--line); border-radius:16px; padding:26px; height:100%;
-    display:flex; flex-direction:column; gap:8px;
-  }
-  .service-card h3{margin-bottom:2px;}
-  .service-card p{color:var(--ink-soft); font-size:.93rem; margin:0;}
+  
+  
+  
 
   /* Forms */
   .form-card{background:var(--paper-alt); border:none; border-radius:20px; padding:34px; box-shadow:none;}
@@ -348,9 +348,9 @@
   .note-box{background:var(--green-tint); border-radius:12px; padding:14px 16px; font-size:.85rem; color:var(--green-deep); margin-bottom:20px;}
 
   /* Speak up routes */
-  .route-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:20px;}
-  @media (max-width:880px){.route-grid{grid-template-columns:1fr 1fr;}}
-  @media (max-width:600px){.route-grid{grid-template-columns:1fr;}}
+  
+  
+  
   .route-card{
     border:1.5px solid var(--line); border-radius:16px; padding:22px; background:#fff;
     display:flex; flex-direction:column; gap:10px;
@@ -362,38 +362,22 @@
     display:inline-flex; align-items:center; gap:6px;
   }
 
-  /* Long-form pages: page table-of-contents, image placeholders, principle cards */
-  .page-toc{background:var(--purple-tint); border:none; border-radius:14px; padding:22px 24px; margin:28px 0;}
-  .page-toc p{margin:0 0 8px; font-weight:700; color:var(--purple-deep); font-size:.85rem; text-transform:uppercase; letter-spacing:.08em;}
-  .page-toc-links{display:grid; grid-template-columns:1fr 1fr; gap:2px 24px; margin:0; padding:0; list-style:none;}
-  @media (max-width:640px){.page-toc-links{grid-template-columns:1fr;}}
-  .page-toc-links a{color:var(--ink-soft); text-decoration:none; font-size:.9rem; line-height:2.1; display:block;}
-  .page-toc-links a:hover{color:var(--purple); text-decoration:underline;}
+  
+  
+  
+  
+  
+  
+  
 
-  .image-placeholder{
-    width:100%; min-height:220px; border:2px dashed var(--green);
-    border-radius:16px; background:var(--green-tint);
-    display:flex; align-items:center; justify-content:center;
-    text-align:center; padding:24px; color:var(--green-deep);
-    font-size:.85rem; font-weight:700;
-  }
+  
 
-  .principle{
-    display:grid; grid-template-columns:56px 1fr; gap:20px;
-    padding:28px 0; border-top:1px solid var(--line);
-  }
-  .principle:last-child{border-bottom:1px solid var(--line);}
-  .principle .num{
-    width:56px; height:56px; border-radius:50%; background:var(--purple-tint);
-    color:var(--purple-deep); font-family:'Fraunces',serif; font-size:1.3rem; font-weight:600;
-    display:flex; align-items:center; justify-content:center; flex:none;
-  }
-  .principle h3{margin-bottom:8px;}
-  .principle p{color:var(--ink-soft); margin:0 0 8px;}
-  @media (max-width:560px){
-    .principle{grid-template-columns:44px 1fr; gap:14px;}
-    .principle .num{width:44px; height:44px; font-size:1.05rem;}
-  }
+  
+  
+  
+  
+  
+  
 
   /* FAQ */
   .faq-group{margin-bottom:34px;}
@@ -422,6 +406,9 @@
   footer{background:var(--purple-deep); color:#E9DEEC; padding:52px 0 30px; margin-top:0;}
   .footer-grid{display:grid; grid-template-columns:1.4fr 1fr 1fr 1fr; gap:30px; margin-bottom:36px;}
   @media (max-width:800px){.footer-grid{grid-template-columns:1fr 1fr;}}
+  @media (max-width:480px){.footer-grid{grid-template-columns:1fr;}}
+  .footer-grid > div{min-width:0;}
+  footer a{overflow-wrap:anywhere;}
   footer h4{font-family:'Public Sans',sans-serif; text-transform:uppercase; letter-spacing:.1em; font-size:.72rem; color:#C9E3CE; margin-bottom:14px; font-weight:700;}
   footer a{display:block; color:#E9DEEC; text-decoration:none; font-size:.9rem; margin-bottom:10px; opacity:.9;}
   footer a:hover{opacity:1; text-decoration:underline;}
@@ -503,19 +490,11 @@
   .chat-options .chat-continue{background:var(--green); border-color:var(--green); color:#fff;}
   .chat-options .chat-continue:hover{background:var(--green-deep); border-color:var(--green-deep);}
 
-  .chat-input-row{
-    flex:none; display:flex; gap:8px; padding:12px 14px; border-top:1px solid var(--line); background:#fff;
-  }
-  .chat-input-row input{
-    flex:1; border:1.5px solid var(--line); border-radius:100px; padding:10px 16px;
-    font-family:inherit; font-size:.9rem; background:var(--paper); color:var(--ink);
-  }
-  .chat-input-row input:focus{border-color:var(--purple); outline:none;}
-  .chat-input-row button{
-    background:var(--purple); color:#fff; border:none; border-radius:50%;
-    width:40px; height:40px; flex:none; display:flex; align-items:center; justify-content:center; cursor:pointer;
-  }
-  .chat-input-row button:hover{background:var(--purple-deep);}
+  
+  
+  
+  
+  
 
   .chat-summary{background:#fff; border:1px solid var(--line); border-radius:14px; padding:14px 16px; align-self:stretch; font-size:.85rem;}
   .chat-summary dt{font-weight:700; color:var(--purple-deep); margin-top:8px;}
@@ -566,18 +545,13 @@
   .back-link:hover{color:var(--purple-deep);}
   .back-link svg{width:14px; height:14px;}
 
-  /* ---------- THE DÒCHAS WAY: simple table (matches supplied reference design) ---------- */
-  .way-table{margin-top:8px;}
-  .way-row{
-    display:grid; grid-template-columns:190px 1fr; gap:28px;
-    padding:22px 0; border-bottom:1px solid var(--line);
-  }
-  .way-row:first-child{border-top:1px solid var(--line);}
-  .way-row .label{font-weight:700; color:var(--purple-deep); font-family:'Fraunces',serif; font-size:1.02rem;}
-  .way-row .desc{color:var(--ink-soft); margin:0; font-size:.95rem; line-height:1.55;}
-  @media (max-width:640px){
-    .way-row{grid-template-columns:1fr; gap:6px;}
-  }
+  
+  
+  
+  
+  
+  
+  
 
   /* ---------- EXPANDABLE "+ SEE MORE" SECTIONS ---------- */
   .expand{border-top:1px solid var(--line); margin-top:8px;}
@@ -624,57 +598,42 @@
 
   .cookie-prefs-link{background:none; border:none; padding:0; color:inherit; text-decoration:underline; cursor:pointer; font:inherit;}
 
-  /* ---------- SERVICES OVERVIEW: interactive accordion cards ---------- */
-  .svc-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:18px;}
-  @media (max-width:880px){.svc-grid{grid-template-columns:1fr;}}
+  
+  
+  
 
-  .svc-card{
-    border-radius:18px; background:var(--paper-alt); overflow:hidden;
-    transition:background .22s ease, transform .22s ease, box-shadow .22s ease;
-  }
-  .svc-card:hover{background:var(--purple-tint); transform:translateY(-3px); box-shadow:0 14px 30px -18px rgba(56,32,66,.35);}
-  .svc-card.featured{background:var(--green-tint);}
-  .svc-card.featured:hover{background:var(--green-tint); filter:brightness(0.98);}
+  
+  
+  
+  
 
-  .svc-head{
-    display:flex; align-items:flex-start; gap:14px; width:100%;
-    background:none; border:none; padding:20px; cursor:pointer; text-align:left;
-  }
-  .svc-icon{
-    width:44px; height:44px; border-radius:50%; background:var(--green-tint);
-    display:flex; align-items:center; justify-content:center; flex:none;
-    transition:background .22s ease;
-  }
-  .svc-icon svg{width:22px; height:22px; stroke:var(--green-deep); transition:stroke .22s ease;}
-  .svc-card.featured .svc-icon{background:var(--green);}
-  .svc-card.featured .svc-icon svg{stroke:#fff;}
+  
+  
+  
+  
+  
 
-  .svc-text{flex:1; min-width:0;}
-  .svc-title{font-family:'Fraunces',serif; font-weight:600; font-size:1.04rem; color:var(--purple-deep); margin:0 0 4px;}
-  .svc-summary{font-size:.86rem; color:var(--ink-soft); margin:0; line-height:1.5;}
+  
+  
+  
 
-  .svc-toggle{
-    width:30px; height:30px; border-radius:50%; background:#fff;
-    display:flex; align-items:center; justify-content:center; flex:none;
-    font-size:1.15rem; font-weight:700; color:var(--purple-deep); line-height:1;
-    transition:transform .3s ease, background .22s ease, color .22s ease;
-  }
-  .svc-head[aria-expanded="true"] .svc-toggle{transform:rotate(45deg); background:var(--green); color:#fff;}
+  
+  
 
-  .svc-body{max-height:0; opacity:0; overflow:hidden; transition:max-height .35s ease, opacity .28s ease;}
-  .svc-body-inner{padding:0 20px 22px 78px;}
-  .svc-body-inner p{margin:0 0 10px; color:var(--ink-soft); font-size:.9rem; line-height:1.6;}
-  .svc-body-inner p strong{color:var(--purple-deep);}
-  .svc-learn-more{font-size:.84rem; font-weight:700; color:var(--green-deep); text-decoration:none;}
-  .svc-learn-more:hover{text-decoration:underline;}
-  @media (max-width:480px){.svc-body-inner{padding-left:20px;}}
+  
+  
+  
+  
+  
+  
+  
 
   /* ---------- THE DÒCHAS WAY: colourful emoji card variant ---------- */
   .way-card-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:18px; margin-top:24px;}
   @media (max-width:980px){.way-card-grid{grid-template-columns:repeat(2,1fr);}}
   @media (max-width:560px){.way-card-grid{grid-template-columns:1fr;}}
   .way-card{border-radius:18px; padding:26px 22px; text-align:center;}
-  .way-card .emoji{font-size:2.1rem; display:block; margin-bottom:10px; line-height:1;}
+  
   .way-card-icon{width:100%; max-width:150px; height:auto; display:block; margin:0 auto 12px; border-radius:10px;}
   .way-card h3{margin:0 0 8px; font-size:1.02rem; text-align:center;}
   .way-card p{margin:0; font-size:.86rem; color:var(--ink-soft); text-align:center; line-height:1.55;}
@@ -683,6 +642,10 @@
   .logo-meaning-grid{display:grid; grid-template-columns:repeat(5,1fr); gap:24px;}
   @media (max-width:980px){.logo-meaning-grid{grid-template-columns:repeat(2,1fr);}}
   @media (max-width:560px){.logo-meaning-grid{grid-template-columns:1fr;}}
+  /* Four-item version (Services page): 4 across on desktop, 2 x 2 below that.
+     A class rather than an inline style, so the phone layout can actually apply. */
+  .logo-meaning-grid.four{grid-template-columns:repeat(4,1fr);}
+  @media (max-width:980px){.logo-meaning-grid.four{grid-template-columns:repeat(2,1fr);}}
   .lm-icon{
     width:42px; height:42px; border-radius:50%; background:var(--paper-alt);
     display:flex; align-items:center; justify-content:center; margin-bottom:12px;
@@ -704,7 +667,7 @@
   .carousel{position:relative; overflow:hidden; border-radius:22px;}
   .carousel-track{position:relative; min-height:260px;}
   .carousel-slide{
-    position:absolute; inset:0; padding:32px 28px;
+    position:absolute; inset:0; padding:32px 28px; min-height:260px;
     display:flex; align-items:center; gap:28px;
     opacity:0; visibility:hidden; pointer-events:none;
     transform:translateX(40px);
@@ -719,7 +682,9 @@
   .carousel.vertical .carousel-slide.active{transform:translateY(0);}
   .carousel.vertical .carousel-slide.leaving{transform:translateY(-30px);}
 
-  .carousel-icon{width:120px; height:120px; border-radius:16px; object-fit:cover; flex:none;}
+  /* The illustrations are wide (about 2.6 : 1). Show them whole, never squeezed into a
+     square and centre-cropped. */
+  .carousel-icon{width:230px; max-width:100%; height:auto; border-radius:16px; flex:none;}
   .carousel.vertical .carousel-icon{width:64px; height:64px; border-radius:50%; background:var(--paper-alt); display:flex; align-items:center; justify-content:center; object-fit:contain; padding:12px;}
   .carousel-icon svg{width:28px; height:28px; stroke:var(--purple-deep);}
   .carousel-slide h3{margin:0 0 8px; font-size:1.3rem;}
@@ -748,5 +713,24 @@
 
   @media (max-width:640px){
     .carousel-slide{flex-direction:column; text-align:center; align-items:center; padding:26px 20px;}
-    .carousel-icon{width:84px; height:84px;}
+    .carousel-icon{width:min(270px, 100%);}
   }
+
+  /* ---------- LEGAL PAGES (privacy policy) ----------
+     Restored into the shared stylesheet: these rules used to live inside the
+     privacy page itself and were lost when that page was rebuilt. */
+  .legal{max-width:780px;}
+  .legal h2{margin-top:44px; font-size:1.5rem;}
+  .legal h3{margin-top:26px; font-size:1.05rem;}
+  .legal p, .legal li{color:var(--ink-soft); font-size:.98rem;}
+  .legal ul{padding-left:20px;}
+  .legal table{width:100%; border-collapse:collapse; margin:18px 0; font-size:.92rem;}
+  .legal th, .legal td{text-align:left; padding:10px 12px; border:1px solid var(--line); vertical-align:top;}
+  .legal th{background:var(--purple-tint); color:var(--purple-deep); font-family:'Public Sans',sans-serif; font-weight:700;}
+  .updated{font-size:.88rem; color:var(--ink-soft); max-width:62ch;}
+  .toc{background:var(--purple-tint); border-radius:14px; padding:22px 24px; margin:28px 0;}
+  .toc p{margin:0 0 8px; font-weight:700; color:var(--purple-deep); font-size:.85rem; text-transform:uppercase; letter-spacing:.08em;}
+  .toc ol{margin:0; padding-left:20px;}
+  .toc a{color:var(--ink-soft); text-decoration:none; font-size:.92rem; line-height:2;}
+  .toc a:hover{color:var(--purple-deep); text-decoration:underline;}
+  @media (max-width:640px){.legal table, .legal thead, .legal tbody, .legal tr, .legal th, .legal td{display:block; width:100%;} .legal tr:first-child{display:none;} .legal td:first-child{font-weight:700; color:var(--purple-deep); background:var(--paper-alt); border-bottom:none;}}

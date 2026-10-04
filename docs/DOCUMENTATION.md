@@ -9,8 +9,8 @@ This document explains what the website is built with, how the folder is organis
 | Technology | What it does here | Notes |
 |---|---|---|
 | **HTML5** | The content and structure of every page (text, headings, forms, images spaces, links). | One `.html` file per page. No build tools or server required, every file opens directly in a browser. |
-| **CSS3** | All visual styling: colours, fonts, spacing, layout, responsive (mobile/tablet/desktop) behaviour, and the two small animations in the homepage hero. | One shared file: `css/styles.css`. Uses native CSS custom properties (variables) for the colour palette, and CSS Grid/Flexbox for layout, no framework (no Bootstrap/Tailwind). |
-| **JavaScript (vanilla, no framework)** | Two small interactive behaviours: (1) the mobile "hamburger" menu opening/closing, (2) the expand/collapse accordion on the FAQ page. | One shared file: `js/main.js`. No libraries, no build step, no npm/node required. |
+| **CSS3** | All visual styling: colours, fonts, spacing, layout, responsive (mobile/tablet/desktop) behaviour, and the gentle scroll-reveal and dropdown animations. | One shared file: `css/styles.css`. Uses native CSS custom properties (variables) for the colour palette, and CSS Grid/Flexbox for layout, no framework (no Bootstrap/Tailwind). |
+| **JavaScript (vanilla, no framework)** | All interactivity: the dropdown menus (staggered reveal) and mobile MENU button, the one-at-a-time carousels (Services and Help & Feedback), the enquiry chat, the cookie banner, the FAQ accordion, the contact form, and the scroll-reveal animation. | One shared file: `js/main.js`. No libraries, no build step, no npm/node required. |
 | **Google Fonts** | Two typefaces loaded from Google's font service over the internet: **Fraunces** (headings) and **Public Sans** (body text). | Loaded via a `<link>` in the `<head>` of every page. Requires an internet connection to display the intended fonts, if offline, browsers fall back to a default serif/sans-serif. |
 
 There is **no backend, database, or server-side code**. The enquiry and contact forms are visually complete but not yet "wired up" to send anywhere, see Section 6.
@@ -77,12 +77,17 @@ dochas-website/
 ├── css/
 │   └── styles.css                → ALL styling for every page, in one file
 │
-├── images/
-│   ├── logo-icon-transparent.png  → the confirmed Dòchas logo mark
-│   ├── homepage-hero.jpg           → homepage hero photo
-│   ├── annah.jpg, gail.jpg         → founder photos
-│   ├── staff-office.jpg, staff-headshot.jpg → team photos (Careers page)
-│   └── diversity-inclusion.jpg     → equality & inclusion section photo
+├── images/                        (31 files, every one is used by a page)
+│   ├── logo-icon-transparent.png  → the Dòchas logo mark (header, footer, About)
+│   ├── logo-icon-*.png (5)        → the five logo symbols (Home, Services)
+│   ├── homepage-hero.jpg, home-care-moment.jpg → Home page photos
+│   ├── services-hero-door.jpg     → Services page photo
+│   ├── arranging-care.jpg         → Arranging Care page photo
+│   ├── annah.jpg, gail.jpg        → founder photos
+│   ├── staff-office.jpg, team-meeting.jpg → Careers page photos
+│   ├── equality-hands-sign.jpg    → About Us, equality section
+│   ├── svc-*.jpg (9)              → Services carousel illustrations
+│   └── way-*.jpg (7)              → The Dòchas Way illustrations
 │
 ├── js/
 │   └── main.js                    → ALL interactivity for every page, in one file
@@ -117,7 +122,7 @@ Because there's no shared templating system, the header and footer HTML is dupli
 
 ## 3a. The Dòchas Way page
 
-`the-dochas-way.html` uses a simple two-column table (label + description, divided by thin horizontal rules) rather than large illustrated cards, matching a reference design the client supplied. This is the `.way-table` / `.way-row` CSS component in `css/styles.css`. If more principles need adding later, copy an existing `.way-row` block and edit the label and description text.
+`the-dochas-way.html` shows the seven principles as coloured cards, each with an illustration (`images/way-*.jpg`, cropped from the client's artwork). The styling is the `.way-card-grid` / `.way-card` / `.way-card-icon` rules in `css/styles.css`. To add a principle later, copy an existing `.way-card` block, change its background colour, title and text, and add a matching illustration to `images/`.
 
 ## 3b. Expandable "+ see more" sections
 
@@ -155,21 +160,13 @@ If a full brand guideline (exact Pantone/hex values, approved logo files in othe
 
 ---
 
-## 5. Where to add images
+## 5. Photos and images
 
-Search `meet-the-founders.html` for the words **"Image space"**, these mark dashed placeholder boxes where a real photo should go: Annah's photo and Gail's photo. Both are already filled in with real photos as of this build. Team photos also appear on `careers.html` (`staff-office.jpg`, `staff-headshot.jpg`).
+All photos are in place, there are no empty "Image space" placeholders left anywhere on the site. Every file in the `images/` folder is used by at least one page (see the list in Section 2).
 
-There is already an `images/` folder inside `dochas-website/` (currently holding the logo file, founder photos, and team photos). To add a photo yourself:
-1. Save the image file into that `images/` folder.
-2. In `meet-the-founders.html`, find the placeholder `<div class="avatar">...</div>` and replace its contents with:
-   ```html
-   <img src="images/annah.jpg" alt="Photo of Annah, co-founder of Dòchas Home Care" style="width:100%;height:100%;object-fit:cover;border-radius:50% 50% 8px 8px;">
-   ```
-3. Repeat for Gail's photo.
+**To swap a photo for a new one,** the simplest way is to save the new image with the **same file name** over the old one in the `images/` folder, no HTML editing needed. Keep it a similar shape to the original (most photos are 3:2 landscape) and compress it first (aim for under ~200 KB) so pages stay quick to load.
 
-`about.html` also has one remaining image placeholder in its "Equality, diversity and inclusion" section, though this has already been filled in with a real photo (`images/diversity-inclusion.jpg`) as of this build.
-
-The logo now uses the client's real artwork (`images/logo-icon-transparent.png`), so it doesn't need to be touched unless a different version of the logo file becomes available (see Section 4).
+Founder photos live in `meet-the-founders.html` (`annah.jpg`, `gail.jpg`), team photos on `careers.html`, and the equality banner on `about.html` (`equality-hands-sign.jpg`). The logo (`logo-icon-transparent.png`) appears in every page's header and footer and on the Home page, so it only needs replacing in one place (see Section 4).
 
 ---
 
@@ -277,6 +274,16 @@ Because this is a static site (no server-side code), it can be hosted almost any
 - Any standard web hosting provider that serves plain HTML/CSS/JS files.
 
 The only requirement is that the folder structure (`css/`, `js/`, `images/`, and the `.html` files) stays together and in the same relative positions, since the pages link to `css/styles.css` and `js/main.js` using relative paths.
+
+### Uploading to GitHub (the 100-file limit)
+
+GitHub's web uploader accepts at most **100 files at a time**. The whole site is **77 files** (41 pages, 31 images, plus the stylesheet, script, sitemap, robots file and this document), so it fits in one upload. If you ever add enough files to pass 100, upload in two batches instead, for example:
+1. All the `.html` pages (plus `sitemap.xml` and `robots.txt`), then commit.
+2. The `css`, `js`, `images` and `docs` folders, then commit.
+
+Two things to remember:
+- **Uploading only adds or replaces files, it never deletes.** If a file has been removed from the project (for example a retired page or an unused photo), it stays in the GitHub repository until you delete it there by hand: open the file on github.com, click the bin icon, and commit. Stray files don't break anything, but they do count towards what you manage and clutter the repository.
+- **Check for leftovers after a big clean-up.** Compare the repository's file list against the project folder; anything in the repository that isn't in the folder can be deleted.
 
 ---
 
