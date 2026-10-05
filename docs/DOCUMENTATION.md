@@ -211,7 +211,8 @@ The live pages contain **no placeholder text**: everything that was waiting on c
 - Section 6 (How long we keep it) can be given specific retention periods; for now it describes the approach in general terms.
 
 **Other pages**
-- **Care Inspectorate registration details** or number (`quality-and-regulation.html`, section "Our relationship with regulation").
+- **Care Inspectorate registration**: the registration number (CS2026000204), "Registered with the Care Inspectorate" and the service area now appear in the footer of every page (edit the `footer-reg` block in the footer of each page). The Quality and Regulation page (`quality-and-regulation.html`) doesn't repeat the number; add it there if wanted.
+- **Terms of Use and Trading Terms**: the client's footer reference includes links to these, but the site has no such pages. They need real text (from the client or their solicitor) before they can be added; the footer currently links to the Privacy Policy and Cookie Preferences.
 - **Out-of-hours contact arrangements** (`contact.html`, under the office hours).
 - **Vacancies** (`current-vacancies.html`): the page currently says no roles are listed. When roles exist, list them there, including experience, driving licence and vehicle requirements for each role.
 - **How anonymous reports are actually received.** The wording on `report-anonymously.html` tells people they can submit a concern or feedback anonymously, but the site has no way to do that yet: the contact form and the enquiry chat both ask for a name and an email. Decide on a route (for example a phone line, a postal address or a dedicated form) and add it to that page.

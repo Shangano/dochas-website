@@ -411,15 +411,22 @@
   }
 
   footer{background:var(--purple-deep); color:#E9DEEC; padding:52px 0 30px; margin-top:0;}
-  .footer-grid{display:grid; grid-template-columns:1.4fr 1fr 1fr 1fr; gap:30px; margin-bottom:36px;}
-  @media (max-width:800px){.footer-grid{grid-template-columns:1fr 1fr;}}
+  .footer-grid{display:grid; grid-template-columns:1.2fr .8fr .9fr 1.5fr 1.3fr; gap:30px; margin-bottom:36px;}
+  @media (max-width:1080px){.footer-grid{grid-template-columns:repeat(3,1fr);}}
+  @media (max-width:700px){.footer-grid{grid-template-columns:1fr 1fr;}}
   @media (max-width:480px){.footer-grid{grid-template-columns:1fr;}}
+  /* Registration details: set off with a thin green rule, like the supplied wording */
+  footer .footer-reg{border-left:3px solid rgba(201,227,206,.55); padding-left:16px;}
+  footer .footer-reg p{margin:0 0 6px; font-size:.88rem; line-height:1.5; opacity:.92;}
+  footer .footer-reg strong{color:#fff;}
   .footer-grid > div{min-width:0;}
   footer a{overflow-wrap:anywhere;}
   footer h4{font-family:'Public Sans',sans-serif; text-transform:uppercase; letter-spacing:.1em; font-size:.72rem; color:#C9E3CE; margin-bottom:14px; font-weight:700;}
   footer a{display:block; color:#E9DEEC; text-decoration:none; font-size:.9rem; margin-bottom:10px; opacity:.9;}
   footer a:hover{opacity:1; text-decoration:underline;}
   footer .bottom{border-top:1px solid rgba(255,255,255,.15); padding-top:22px; font-size:.8rem; opacity:.7; display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px;}
+  footer .bottom{flex-direction:column; align-items:flex-start; gap:12px;}
+  footer .bottom-copy{max-width:86ch; line-height:1.55;}
   footer .bottom-links{display:flex; align-items:center; gap:18px; flex-wrap:wrap;}
   footer .bottom-links a{display:inline; margin:0; text-decoration:underline; opacity:1;}
   footer .bottom-links .cookie-prefs-link{opacity:1; color:#E9DEEC;}
@@ -649,10 +656,6 @@
   .logo-meaning-grid{display:grid; grid-template-columns:repeat(5,1fr); gap:24px;}
   @media (max-width:980px){.logo-meaning-grid{grid-template-columns:repeat(2,1fr);}}
   @media (max-width:560px){.logo-meaning-grid{grid-template-columns:1fr;}}
-  /* Four-item version (Services page): 4 across on desktop, 2 x 2 below that.
-     A class rather than an inline style, so the phone layout can actually apply. */
-  .logo-meaning-grid.four{grid-template-columns:repeat(4,1fr);}
-  @media (max-width:980px){.logo-meaning-grid.four{grid-template-columns:repeat(2,1fr);}}
   .lm-icon{
     width:42px; height:42px; border-radius:50%; background:var(--paper-alt);
     display:flex; align-items:center; justify-content:center; margin-bottom:12px;

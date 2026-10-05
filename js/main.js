@@ -337,18 +337,18 @@ if (hamburger && primaryNav) {
       ["Are carers expected to register with the SSSC?","Where registration is required for the role, staff are expected to meet the relevant Scottish Social Services Council requirements."],
       ["Can I ask a carer to do something that isn't in my care plan?","Speak to your Care Manager first. Carers shouldn't agree to duties outside the agreed care arrangements where it could create safety, insurance or other concerns."]
     ]},
-    {group:"Privacy & professional boundaries", id:"privacy-boundaries", items:[
+    {group:"Privacy and professional boundaries", id:"privacy-boundaries", items:[
       ["Will my information be kept confidential?","Yes, information is only accessed, used or shared for legitimate purposes and in line with applicable law and Dòchas policies, except where there's a serious safeguarding concern or another lawful reason."],
       ["Can my family receive information about my care?","Not automatically. Receiving care doesn't mean losing your right to privacy, information can be shared with relatives where there's appropriate consent or authority."],
       ["Can I become friends with my carer?","We want relationships to be warm, respectful and comfortable, but they must remain professional. Boundaries protect both the client and the care worker."]
     ]},
-    {group:"Complaints & concerns", id:"complaints", items:[
+    {group:"Complaints and concerns", id:"complaints", items:[
       ["What if I'm unhappy with my care?","Please tell us, speak to a member of the management team or use our complaints process. We want concerns raised early."],
       ["Will complaining affect my care?","No, you should never be treated adversely for raising a genuine concern or complaint."],
       ["Can a family member complain for me?","Yes, where appropriate, we may need to confirm consent or authority to act on your behalf, particularly where confidential information is involved."],
       ["What if my concern is about abuse or neglect?","Please report it as a safeguarding concern. If someone is in immediate danger, contact emergency services straight away."]
     ]},
-    {group:"Fees & funding", id:"fees-funding", items:[
+    {group:"Fees and funding", id:"fees-funding", items:[
       ["How much does Dòchas care cost?","Cost depends on the type and amount of support required, and how care is arranged. Please contact us so we can discuss your circumstances."],
       ["Can care be funded by the local authority?","Some people receive all or part of their care through public funding. Eligibility is decided by the relevant authority, we can discuss the care service itself and work with professionals where a referral is being considered."]
     ]},
