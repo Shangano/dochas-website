@@ -199,7 +199,7 @@ Because the header/footer are duplicated across all files, do a **find-and-repla
 
 ## 7. What's NOT wired up yet (by design)
 
-- **Enquiry chatbot and contact form** are both built to send via EmailJS, and will do so automatically as soon as the three placeholder values in `js/main.js` are filled in with real EmailJS credentials, see Section 7b for the exact steps. Until then, both fall back to opening the visitor's own email app with everything pre-filled (a `mailto:` link), so nothing is broken in the meantime, it's just not landing directly in an inbox yet.
+- **Enquiry chatbot and contact form** send through EmailJS. The three EmailJS values are already filled in at the top of `js/main.js` (see Section 7b), so both send straight to the inbox set in the EmailJS template. If the EmailJS library can't load (for example an ad-blocker), they fall back to opening the visitor's own email app.
 
 ### Details to add once Dòchas has confirmed them (none of this shows on the public site)
 
@@ -214,13 +214,13 @@ The live pages contain **no placeholder text**: everything that was waiting on c
 - **Care Inspectorate registration details** or number (`quality-and-regulation.html`, section "Our relationship with regulation").
 - **Out-of-hours contact arrangements** (`contact.html`, under the office hours).
 - **Vacancies** (`current-vacancies.html`): the page currently says no roles are listed. When roles exist, list them there, including experience, driving licence and vehicle requirements for each role.
-- **How anonymous reports are actually received.** The wording on `report-anonymously.html` is final, but the site has no way to send an anonymous report yet: the contact form and the enquiry chat both ask for a name and an email. Decide on a route (for example a phone line, a postal address or a dedicated form) and add it to that page.
+- **How anonymous reports are actually received.** The wording on `report-anonymously.html` tells people they can submit a concern or feedback anonymously, but the site has no way to do that yet: the contact form and the enquiry chat both ask for a name and an email. Decide on a route (for example a phone line, a postal address or a dedicated form) and add it to that page.
 - **Service area wording**: currently one staff team based in Dundee, covering Dundee City and East Angus.
 - Confirm every listed service is within Dòchas's registration, staffing and current delivery capability.
 - **Reply time in the chat**: the chat header says "Here to help you take the first step". If Dòchas is happy to promise a reply time (for example "Usually replies within one working day"), it can be put back in the header of the chat widget, which is repeated in the HTML of each page.
 - **"View current vacancies"** on the Careers page links to the vacancies page; point it at a jobs board if you use one.
 
-**Before going live** (see also Section 9): the domain in `sitemap.xml` and `robots.txt` (`www.dochashomecare.co.uk`) must match the real address of the site, and the three EmailJS values in `js/main.js` need filling in (Section 7b).
+**Before going live** (see also Section 9): the domain in `sitemap.xml` and `robots.txt` (`www.dochashomecare.co.uk`) must match the real address of the site, and (Section 7b, step 6) the website's address should be added to the EmailJS domain allowlist.
 
 ---
 
@@ -243,18 +243,62 @@ The professional referral path branches automatically based on the answer to the
 
 ## 7b. Connecting the enquiry chatbot and contact form to a real inbox (EmailJS)
 
-By default, both the chatbot and the contact form (`contact.html`) fall back to opening the visitor's own email app with everything pre-filled. To have submissions land directly in a real inbox instead, without needing any backend server, the site is already wired up for **EmailJS**, you just need to finish the account setup:
+By default, both the chatbot and the contact form (`contact.html`) fall back to opening the visitor's own email app with everything pre-filled. Submissions land directly in a real inbox, without any backend server, using **EmailJS**. The site is wired up and the values are filled in; this section records how it was set up and how to change it.
+
+### The variables the site sends
+
+Each answer is sent as its own named variable, so the email can show one per line. A variable that doesn't apply to a particular enquiry is sent empty, and the template simply leaves that line out.
+
+| Variable | What it holds | Sent by |
+|---|---|---|
+| `source` | "Enquiry chat", "Enquiry chat (professional referral)" or "Contact form" | both |
+| `subject` | e.g. "New enquiry from the Dòchas website: Tendai Moyo" | both |
+| `from_name` | the person's name | both |
+| `reply_to` | their email address (for a professional referral, the contact detail if it is an email) | both |
+| `phone` | phone number including country code, e.g. `+267 71 234 567` | both |
+| `enquiry_for` | Myself / A parent or relative / Someone I care for / Professional referral | chat |
+| `organisation` | organisation and role | chat (referral) |
+| `contact_details` | phone number or email given by a referrer | chat (referral) |
+| `area` | area / postcode where care is needed | chat |
+| `support_type` | types of support chosen | chat |
+| `timing` | when care might begin | chat |
+| `referral_details` | details of the referral | chat (referral) |
+| `notes` | "anything else" (left out if they just answered "no") | chat |
+| `reason` | reason for contacting us | contact form |
+| `message` | the message they typed | contact form |
+
+### Setting it up
 
 1. Create a free account at [emailjs.com](https://www.emailjs.com).
-2. Under **Email Services**, connect the inbox you want enquiries to arrive in (Gmail, Outlook, or any other supported provider), then copy its **Service ID**.
-3. Under **Email Templates**, create a new template. It will receive these variables from the site: `{{from_name}}`, `{{reply_to}}`, `{{subject}}`, and `{{message}}` (a plain-text block containing all the enquiry answers, or the contact form's message). A simple template body works well, for example:
-   ```
-   Subject: {{subject}}
-   From: {{from_name}} ({{reply_to}})
+2. Under **Email Services**, connect the inbox the emails should be sent through (Gmail, Outlook, etc.) and copy its **Service ID**.
+3. Under **Email Templates**, create a template and fill in its fields:
+   - **Subject:** `{{subject}}`
+   - **To Email:** the address your team checks for enquiries
+   - **From Name:** `Dòchas website`
+   - **From Email:** tick "Use Default Email Address"
+   - **Reply To:** `{{reply_to}}` (so pressing Reply writes back to the person who got in touch)
+   - **Content** (type each line as its own paragraph, pressing Enter, not Shift+Enter):
+     ```
+     New enquiry from the Dòchas website
 
-   {{message}}
-   ```
-   Copy the template's **Template ID** once saved.
+     Received via: {{source}}
+
+     Name: {{from_name}}
+     {{#reply_to}}Email: {{reply_to}}{{/reply_to}}
+     {{#phone}}Phone: {{phone}}{{/phone}}
+     {{#contact_details}}Contact details: {{contact_details}}{{/contact_details}}
+     {{#enquiry_for}}This enquiry is for: {{enquiry_for}}{{/enquiry_for}}
+     {{#organisation}}Organisation and role: {{organisation}}{{/organisation}}
+     {{#area}}Area / postcode: {{area}}{{/area}}
+     {{#support_type}}Type of support: {{support_type}}{{/support_type}}
+     {{#timing}}When care might begin: {{timing}}{{/timing}}
+     {{#reason}}Reason for contacting us: {{reason}}{{/reason}}
+     {{#referral_details}}Referral details: {{referral_details}}{{/referral_details}}
+     {{#notes}}Additional notes: {{notes}}{{/notes}}
+     {{#message}}Message: {{message}}{{/message}}
+     ```
+     The `{{#name}} ... {{/name}}` wrapper is EmailJS's "conditional section": the line appears only if that answer exists.
+   - Save, then copy the template's **Template ID**.
 4. Under **Account → General**, copy your **Public Key**.
 5. Open `js/main.js` and find these three lines near the very top of the file:
    ```js
@@ -262,10 +306,13 @@ By default, both the chatbot and the contact form (`contact.html`) fall back to 
    const EMAILJS_SERVICE_ID = 'YOUR_SERVICE_ID';
    const EMAILJS_TEMPLATE_ID = 'YOUR_TEMPLATE_ID';
    ```
-   Replace the three placeholder values with the ones from steps 2–4.
-6. Save the file. That's it, no other changes needed. Both the chatbot's "Send enquiry" button and the contact form will now send directly to your inbox, on every page, since they all share this one file.
+   These currently hold the live values (public key `HhBi_m43Y5w-vp2zK`, service `service_6a5ev4q`, template `template_teuslei`). To change them, replace the text between the quotes with the new values from steps 2–4, then re-upload `js/main.js`. Don't use find-and-replace across the whole file: only edit those three lines. Both the chatbot and the contact form will now send directly to your inbox, on every page, since they all share this one file.
+6. **Restrict the key to your website.** The Public Key is visible to anyone who views the site's code (this is normal and expected for EmailJS). To stop other websites using it, go to **Account → Security → Domains** and add your site's address in the form `https://your-site-address` (no page path), e.g. `https://username.github.io`.
+7. Test on the live site: send an enquiry through the chat and a message through the contact form, and check both arrive and that **Reply** goes to the sender.
 
-Until these values are filled in, the site automatically keeps using the mailto: fallback, so nothing is broken in the meantime, this is a drop-in upgrade whenever you're ready. EmailJS's free tier covers 200 emails per month at the time of writing, worth checking their current pricing if the site gets busier.
+Until the three values are filled in, the site automatically keeps using the mailto: fallback, so nothing is broken in the meantime. EmailJS's free tier covers 200 emails per month at the time of writing, so check their current pricing if the site gets busier. Note that variables in double braces are safely escaped by EmailJS, so text typed by visitors can't inject formatting or links into your emails; don't switch them to triple braces.
+
+**Data protection:** EmailJS handles enquiry details on their way to your inbox, so it acts as a service provider for Dòchas. They publish a data protection agreement on their website; worth mentioning to the solicitor reviewing the Privacy Policy.
 
 ---
 

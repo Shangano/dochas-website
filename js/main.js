@@ -15,12 +15,14 @@
 // email app instead (the old mailto: behaviour), so nothing breaks
 // in the meantime.
 // ============================================================
-const EMAILJS_PUBLIC_KEY = 'YOUR_PUBLIC_KEY';
-const EMAILJS_SERVICE_ID = 'YOUR_SERVICE_ID';
-const EMAILJS_TEMPLATE_ID = 'YOUR_TEMPLATE_ID';
+const EMAILJS_PUBLIC_KEY = 'HhBi_m43Y5w-vp2zK';
+const EMAILJS_SERVICE_ID = 'service_6a5ev4q';
+const EMAILJS_TEMPLATE_ID = 'template_teuslei';
 
+// Ready once the EmailJS library has loaded and none of the three values is still a "YOUR_..." placeholder.
+// (Written this way so a find-and-replace on a placeholder can never switch the check off.)
 const emailjsReady = typeof emailjs !== 'undefined'
-  && EMAILJS_PUBLIC_KEY !== 'YOUR_PUBLIC_KEY';
+  && ![EMAILJS_PUBLIC_KEY, EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID].some(v => /^YOUR_/.test(v));
 
 if (emailjsReady) {
   emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
@@ -119,6 +121,35 @@ function composePhone(code, raw) {
   const plain = v.replace(/[()]/g, '').replace(/\s+/g, ' ').trim();
   const shown = trunk ? plain.replace(/^0\s*/, '') : plain;
   return { value: code + ' ' + (trunk ? '(0)' : '') + shown, problem: '' };
+}
+
+// ============================================================
+// What gets sent to EmailJS: ONE named variable per field, so the email template can show
+// each answer on its own line. A field that doesn't apply (for example "area" on a
+// professional referral) is sent empty, and the template simply leaves that line out.
+// The variable names below are the ones to use in the EmailJS template (see docs, Section 7b).
+// ============================================================
+function chatEmailParams(a) {
+  const get = k => String(a[k] || '').trim();
+  const professional = get('Enquiry is for') === 'Professional referral';
+  const name = get('Name');
+  const contact = get('Contact details');
+  const notes = get('Additional notes');
+  return {
+    source: professional ? 'Enquiry chat (professional referral)' : 'Enquiry chat',
+    subject: 'New enquiry from the Dòchas website' + (name ? ': ' + name : ''),
+    from_name: name || 'Website enquiry',
+    reply_to: get('Email') || (isValidEmail(contact) ? contact : ''),   // so "Reply" goes straight to them
+    enquiry_for: get('Enquiry is for'),
+    organisation: get('Organisation & role'),
+    phone: get('Phone number'),
+    contact_details: contact,
+    area: get('Area / postcode'),
+    support_type: get('Type of support'),
+    timing: get('Timing'),
+    referral_details: get('Referral details'),
+    notes: /^(no|none|nope|nothing|n\/a)[.!\s]*$/i.test(notes) ? '' : notes,   // "no" isn't worth a line
+  };
 }
 
 // Used by the enquiry chat. Returns '' if the answer is acceptable, otherwise a message.
@@ -612,15 +643,11 @@ if (hamburger && primaryNav) {
         if (emailjsReady) {
           sendBtn.disabled = true;
           sendBtn.textContent = 'Sending...';
-          emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
-            from_name: answers['Name'] || 'Website enquiry',
-            reply_to: answers['Email'] || '',
-            subject: 'New enquiry from the Dòchas website',
-            message: messageBody,
-          }).then(() => {
+          emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, chatEmailParams(answers)).then(() => {
             sendBtn.remove();
             addBubble("Thanks, your enquiry has been sent! We'll be in touch soon.", 'bot');
-          }).catch(() => {
+          }).catch((err) => {
+            console.error('EmailJS could not send the message:', (err && err.text) ? err.status + ' ' + err.text : err);
             sendBtn.disabled = false;
             sendBtn.textContent = 'Send enquiry';
             addBubble("Sorry, something went wrong sending that. Please try again, or call us on 07309 704101.", 'bot');
@@ -794,17 +821,21 @@ if (hamburger && primaryNav) {
       submitBtn.textContent = 'Sending...';
       statusEl.textContent = '';
       emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
+        source: 'Contact form',
+        subject: 'New contact form message from ' + name,
         from_name: name,
         reply_to: email,
-        subject: 'New message from the Dòchas contact form',
-        message: fullMessage,
+        reason: reason,
+        phone: phoneResult.value,
+        message: message,
       }).then(() => {
         form.reset();
         submitBtn.disabled = false;
         submitBtn.textContent = 'Send message';
         statusEl.textContent = "Thanks, your message has been sent! We'll be in touch soon.";
         statusEl.style.color = 'var(--green-deep)';
-      }).catch(() => {
+      }).catch((err) => {
+            console.error('EmailJS could not send the message:', (err && err.text) ? err.status + ' ' + err.text : err);
         submitBtn.disabled = false;
         submitBtn.textContent = 'Send message';
         statusEl.textContent = 'Sorry, something went wrong. Please try again, or call us on 07309 704101.';
