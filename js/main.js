@@ -26,6 +26,114 @@ if (emailjsReady) {
   emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
 }
 
+// ============================================================
+// Form validation helpers (used by the contact form AND the enquiry chat)
+// ------------------------------------------------------------
+// isValidEmail checks the FORMAT of an address: a name part, exactly one @,
+// and a real-looking domain ending in a dot and 2+ letters. It rejects things
+// like "hello", "a@b", "name@@x.com", "name@localhost" or anything with spaces.
+// (Only a mail server can prove an inbox actually exists; no website can.)
+// ============================================================
+function isValidEmail(value) {
+  const v = String(value).trim();
+  if (v.length > 254 || /\s/.test(v)) return false;
+  const parts = v.split('@');
+  if (parts.length !== 2) return false;
+  const local = parts[0], domain = parts[1];
+  if (local.length < 1 || local.length > 64) return false;
+  if (!/^[A-Za-z0-9!#$%&'*+\/=?^_`{|}~-]+(\.[A-Za-z0-9!#$%&'*+\/=?^_`{|}~-]+)*$/.test(local)) return false;
+  return /^(?:[A-Za-z0-9](?:[A-Za-z0-9-]{0,61}[A-Za-z0-9])?\.)+[A-Za-z]{2,}$/.test(domain);
+}
+
+// Returns '' if the email is fine, otherwise a plain-English message saying what's wrong.
+function emailProblem(value) {
+  const v = String(value).trim();
+  if (!v) return 'Please enter your email address.';
+  if (v.indexOf('@') === -1) return "That doesn't look like an email address. It needs an @, like name@example.com.";
+  if (!isValidEmail(v)) return "That email address doesn't look quite right. Please check it, it should look like name@example.com.";
+  return '';
+}
+
+// A plausible phone number: only digits, spaces, + ( ) - . and 7 to 15 digits in total.
+function looksLikePhone(value) {
+  const v = String(value).trim();
+  if (!/^[0-9+()\-.\s]+$/.test(v)) return false;
+  const digits = v.replace(/\D/g, '').length;
+  return digits >= 7 && digits <= 15;
+}
+
+// ============================================================
+// Phone numbers with a country code (contact form + enquiry chat)
+// ------------------------------------------------------------
+// COUNTRY_CODES is the complete table of dialling codes (ISO region : code, 245 entries,
+// about 1.6 KB). Country NAMES are not stored here: the visitor's own browser supplies
+// them (Intl.DisplayNames), so nothing extra is downloaded.
+// ============================================================
+const COUNTRY_CODES = "AC:247,AD:376,AE:971,AF:93,AG:1,AI:1,AL:355,AM:374,AO:244,AR:54,AS:1,AT:43,AU:61,AW:297,AX:358,AZ:994,BA:387,BB:1,BD:880,BE:32,BF:226,BG:359,BH:973,BI:257,BJ:229,BL:590,BM:1,BN:673,BO:591,BQ:599,BR:55,BS:1,BT:975,BW:267,BY:375,BZ:501,CA:1,CC:61,CD:243,CF:236,CG:242,CH:41,CI:225,CK:682,CL:56,CM:237,CN:86,CO:57,CR:506,CU:53,CV:238,CW:599,CX:61,CY:357,CZ:420,DE:49,DJ:253,DK:45,DM:1,DO:1,DZ:213,EC:593,EE:372,EG:20,EH:212,ER:291,ES:34,ET:251,FI:358,FJ:679,FK:500,FM:691,FO:298,FR:33,GA:241,GB:44,GD:1,GE:995,GF:594,GG:44,GH:233,GI:350,GL:299,GM:220,GN:224,GP:590,GQ:240,GR:30,GT:502,GU:1,GW:245,GY:592,HK:852,HN:504,HR:385,HT:509,HU:36,ID:62,IE:353,IL:972,IM:44,IN:91,IO:246,IQ:964,IR:98,IS:354,IT:39,JE:44,JM:1,JO:962,JP:81,KE:254,KG:996,KH:855,KI:686,KM:269,KN:1,KP:850,KR:82,KW:965,KY:1,KZ:7,LA:856,LB:961,LC:1,LI:423,LK:94,LR:231,LS:266,LT:370,LU:352,LV:371,LY:218,MA:212,MC:377,MD:373,ME:382,MF:590,MG:261,MH:692,MK:389,ML:223,MM:95,MN:976,MO:853,MP:1,MQ:596,MR:222,MS:1,MT:356,MU:230,MV:960,MW:265,MX:52,MY:60,MZ:258,NA:264,NC:687,NE:227,NF:672,NG:234,NI:505,NL:31,NO:47,NP:977,NR:674,NU:683,NZ:64,OM:968,PA:507,PE:51,PF:689,PG:675,PH:63,PK:92,PL:48,PM:508,PR:1,PS:970,PT:351,PW:680,PY:595,QA:974,RE:262,RO:40,RS:381,RU:7,RW:250,SA:966,SB:677,SC:248,SD:249,SE:46,SG:65,SH:290,SI:386,SJ:47,SK:421,SL:232,SM:378,SN:221,SO:252,SR:597,SS:211,ST:239,SV:503,SX:1,SY:963,SZ:268,TA:290,TC:1,TD:235,TG:228,TH:66,TJ:992,TK:690,TL:670,TM:993,TN:216,TO:676,TR:90,TT:1,TV:688,TW:886,TZ:255,UA:380,UG:256,US:1,UY:598,UZ:998,VA:39,VC:1,VE:58,VG:1,VI:1,VN:84,VU:678,WF:681,WS:685,XK:383,YE:967,YT:262,ZA:27,ZM:260,ZW:263";
+
+// Fills a <select> with every country, United Kingdom first and pre-selected.
+function buildCountrySelect(select) {
+  let names = null;
+  try { names = new Intl.DisplayNames(['en'], { type: 'region' }); } catch (e) { /* very old browser: fall back to the 2-letter code */ }
+  const list = COUNTRY_CODES.split(',').map(pair => {
+    const bits = pair.split(':');
+    return { region: bits[0], code: bits[1], name: (names && names.of(bits[0])) || bits[0] };
+  }).sort((a, b) => a.name.localeCompare(b.name, 'en'));
+  const make = c => {
+    const o = document.createElement('option');
+    o.value = '+' + c.code;
+    o.textContent = c.name + ' (+' + c.code + ')';
+    return o;
+  };
+  select.textContent = '';
+  const uk = list.filter(c => c.region === 'GB')[0];
+  select.appendChild(make(uk));
+  const rule = document.createElement('option');
+  rule.disabled = true; rule.textContent = '──────────';
+  select.appendChild(rule);
+  list.filter(c => c.region !== 'GB').forEach(c => select.appendChild(make(c)));
+  select.selectedIndex = 0;
+}
+
+const PHONE_PROBLEM = "That doesn't look like a valid phone number. Please check it, and choose the country code first if it isn't a UK number.";
+
+// Turns what someone typed plus their chosen country code into one clear number.
+// Returns { value, problem }. Handles all the ways people really write numbers:
+//   07309 704101      with +44  ->  +44 (0)7309 704101   (the (0) is the usual way to show the dropped first 0)
+//   71 234 567        with +267 ->  +267 71 234 567
+//   +267 71 234 567   typed in full: used as typed, the drop-down is ignored
+//   00267 71234567    "00" is read as "+"
+function composePhone(code, raw) {
+  let v = String(raw).replace(/\s+/g, ' ').trim();
+  if (!/^\+?[0-9()\-. ]+$/.test(v)) return { value: '', problem: PHONE_PROBLEM };
+  if (/^00[^0]/.test(v.replace(/[ ().-]/g, ''))) v = '+' + v.replace(/^0\s*0\s*/, '');
+  const digits = v.replace(/\D/g, '');
+  if (v.charAt(0) === '+') {                         // already international
+    return (digits.length >= 7 && digits.length <= 15) ? { value: v, problem: '' } : { value: '', problem: PHONE_PROBLEM };
+  }
+  const trunk = digits.charAt(0) === '0';
+  const national = trunk ? digits.slice(1) : digits;
+  const total = String(code).replace(/\D/g, '').length + national.length;
+  if (national.length < 4 || total < 7 || total > 15) return { value: '', problem: PHONE_PROBLEM };
+  // UK numbers are often written with brackets, e.g. (01382) 123456: drop the brackets, then the leading 0
+  const plain = v.replace(/[()]/g, '').replace(/\s+/g, ' ').trim();
+  const shown = trunk ? plain.replace(/^0\s*/, '') : plain;
+  return { value: code + ' ' + (trunk ? '(0)' : '') + shown, problem: '' };
+}
+
+// Used by the enquiry chat. Returns '' if the answer is acceptable, otherwise a message.
+function chatAnswerProblem(kind, value) {
+  if (kind === 'email') {
+    const p = emailProblem(value);
+    return p ? p + " If you don't have an email address, please call us on 07309 704101." : '';
+  }
+  if (kind === 'emailOrPhone') {
+    if (String(value).indexOf('@') !== -1) return emailProblem(value);
+    return looksLikePhone(value) ? '' : 'Please give us a phone number or an email address (like name@example.com).';
+  }
+  return '';
+}
+
 // ---- Mobile nav toggle ----
 const hamburger = document.getElementById('hamburger');
 const primaryNav = document.getElementById('primaryNav');
@@ -276,7 +384,7 @@ if (hamburger && primaryNav) {
     who: {
       bot: "Hi, I'm here to help start your enquiry with Dòchas. Who is this for?",
       type: 'options',
-      key: 'who',
+      key: 'Enquiry is for',
       options: [
         { label: 'Myself', value: 'Myself' },
         { label: 'A parent or relative', value: 'A parent or relative' },
@@ -289,20 +397,20 @@ if (hamburger && primaryNav) {
     // Professional referral branch
     prof_org: { bot: "Thanks for reaching out. What's your organisation and role?", type: 'text', key: 'Organisation & role', next: () => 'prof_name' },
     prof_name: { bot: "What's your name?", type: 'text', key: 'Name', next: () => 'prof_contact' },
-    prof_contact: { bot: "Best phone number or email to reach you?", type: 'text', key: 'Contact details', next: () => 'prof_details' },
+    prof_contact: { bot: "Best phone number or email to reach you?", type: 'text', key: 'Contact details', validate: 'emailOrPhone', placeholder: 'Phone (with +country code) or email', next: () => 'prof_details' },
     prof_details: { bot: "Tell us a bit about the referral, who needs support, and anything relevant we should know.", type: 'text', key: 'Referral details', next: () => 'summary' },
 
     // Personal enquiry branch
     name: { bot: "What's your name?", type: 'text', key: 'Name', next: () => 'phone' },
-    phone: { bot: "Best phone number to reach you on?", type: 'text', key: 'Phone number', next: () => 'email' },
-    email: { bot: "And an email address?", type: 'text', key: 'Email', next: () => 'area' },
+    phone: { bot: "Best phone number to reach you on?", type: 'text', key: 'Phone number', phone: true, placeholder: 'Phone number', inputMode: 'tel', next: () => 'email' },
+    email: { bot: "And an email address?", type: 'text', key: 'Email', validate: 'email', placeholder: 'name@example.com', inputMode: 'email', next: () => 'area' },
     area: { bot: "Which area or postcode is care needed in?", type: 'text', key: 'Area / postcode', next: () => 'support_type' },
     support_type: {
       bot: "What kind of support are you looking for? Choose all that apply.",
       type: 'multiselect',
       key: 'Type of support',
       options: [
-        'Personal care', 'Support with daily living', 'Companionship', 'Medication support',
+        'Personal care', 'Support with daily living', 'Companionship and social time', 'Medication support',
         'Mobility support', 'Support after hospital discharge', 'Respite for family', "Not sure yet"
       ],
       next: () => 'timing'
@@ -411,16 +519,59 @@ if (hamburger && primaryNav) {
       row.style.width = '100%';
       const input = document.createElement('input');
       input.type = 'text';
-      input.placeholder = 'Type your answer...';
+      input.placeholder = step.placeholder || 'Type your answer...';
+      if (step.inputMode) input.inputMode = step.inputMode;
+      if (step.validate === 'email') input.autocomplete = 'email';
       input.style.cssText = 'flex:1; border:1.5px solid var(--line); border-radius:100px; padding:9px 14px; font-family:inherit; font-size:.88rem; background:var(--paper);';
+      let errEl = null;
+      // Phone steps get a country-code list above the box (UK pre-selected)
+      let countrySel = null, holder = row;
+      if (step.phone) {
+        holder = document.createElement('div');
+        holder.className = 'chat-input-row-inline chat-options';
+        holder.style.cssText = 'width:100%; flex-direction:column; align-items:stretch; gap:8px;';
+        countrySel = document.createElement('select');
+        countrySel.setAttribute('aria-label', 'Country code');
+        countrySel.style.cssText = 'width:100%; border:1.5px solid var(--line); border-radius:100px; padding:9px 14px; font-family:inherit; font-size:.88rem; background:var(--paper); color:var(--ink);';
+        buildCountrySelect(countrySel);
+        countrySel.addEventListener('change', () => { if (errEl) { errEl.remove(); errEl = null; } input.removeAttribute('aria-invalid'); input.focus(); });
+        holder.appendChild(countrySel);
+        holder.appendChild(row);
+      }
       const send = document.createElement('button');
       send.type = 'button';
       send.textContent = 'Send';
       send.style.cssText = 'background:var(--purple); color:#fff; border:none; border-radius:100px; padding:9px 16px; font-weight:700; font-size:.85rem; cursor:pointer;';
 
+      // Shows (or updates) the "that doesn't look right" message under the box
+      const showError = (msg) => {
+        if (!errEl) {
+          errEl = document.createElement('div');
+          errEl.className = 'chat-input-row-inline chat-error';   // cleared with the row by clearTransientInputs()
+          errEl.setAttribute('role', 'alert');
+          body.appendChild(errEl);
+        }
+        errEl.textContent = msg;
+        input.setAttribute('aria-invalid', 'true');
+        scrollToBottom();
+        input.focus();
+      };
+      input.addEventListener('input', () => {
+        if (errEl) { errEl.remove(); errEl = null; }
+        input.removeAttribute('aria-invalid');
+      });
+
       const submit = () => {
-        const val = input.value.trim();
+        let val = input.value.trim();
         if (!val) return;
+        if (step.phone) {
+          const res = composePhone(countrySel.value, val);
+          if (res.problem) { showError(res.problem); return; }
+          val = res.value;                                // e.g. "+267 71 234 567", shown back to them below
+        } else if (step.validate) {
+          const problem = chatAnswerProblem(step.validate, val);
+          if (problem) { showError(problem); return; }   // keep what they typed so they can fix it
+        }
         clearTransientInputs();
         addBubble(val, 'user');
         answers[step.key] = val;
@@ -431,7 +582,7 @@ if (hamburger && primaryNav) {
 
       row.appendChild(input);
       row.appendChild(send);
-      body.appendChild(row);
+      body.appendChild(holder);
       scrollToBottom();
       input.focus();
 
@@ -583,22 +734,60 @@ if (hamburger && primaryNav) {
   const statusEl = document.getElementById('contactFormStatus');
   const submitBtn = document.getElementById('contactSubmitBtn');
 
+  const nameEl = form.elements['name'];
+  const phoneEl = form.elements['phone'];
+  const codeEl = form.elements['phonecode'];
+  buildCountrySelect(codeEl);   // fills the country list (UK first); the page ships with just the UK so it still works without script
+  const emailEl = form.elements['email'];
+  const reasonEl = form.elements['reason'];
+  const messageEl = form.elements['message'];
+
+  // Show (or clear) the message under a field, and flag the field for screen readers
+  function setFieldError(input, text) {
+    const errEl = document.getElementById('cf-' + input.name + '-error');
+    errEl.textContent = text || '';
+    if (text) {
+      input.setAttribute('aria-invalid', 'true');
+      input.setAttribute('aria-describedby', errEl.id);
+    } else {
+      input.removeAttribute('aria-invalid');
+      input.removeAttribute('aria-describedby');
+    }
+  }
+  // clear a field's message as soon as the person starts correcting it
+  [nameEl, emailEl, phoneEl, messageEl].forEach(el => el.addEventListener('input', () => setFieldError(el, '')));
+  codeEl.addEventListener('change', () => setFieldError(phoneEl, ''));
+
   form.addEventListener('submit', (e) => {
     e.preventDefault();
 
-    const name = form.name.value.trim();
-    const phone = form.phone.value.trim();
-    const email = form.email.value.trim();
-    const reason = form.reason.value;
-    const message = form.message.value.trim();
+    const name = nameEl.value.trim();
+    const phone = phoneEl.value.trim();
+    const email = emailEl.value.trim();
+    const reason = reasonEl.value;
+    const message = messageEl.value.trim();
 
-    if (!name || !email || !message) {
-      statusEl.textContent = 'Please fill in your name, email and message.';
-      statusEl.style.color = '#8C3A2F';
-      return;
+    // Check every field, show every problem at once, then jump to the first one
+    // The telephone is optional, but if one is given it must be a real-looking number
+    const phoneResult = phone ? composePhone(codeEl.value, phone) : { value: '', problem: '' };
+    const checks = [
+      [nameEl, name ? '' : 'Please tell us your name.'],
+      [emailEl, emailProblem(email)],
+      [phoneEl, phoneResult.problem],
+      [messageEl, message ? '' : 'Please write a short message.'],
+    ];
+    let firstBad = null;
+    checks.forEach(([el, problem]) => {
+      setFieldError(el, problem);
+      if (problem && !firstBad) firstBad = el;
+    });
+    if (firstBad) {
+      statusEl.textContent = '';
+      firstBad.focus();
+      return;                      // nothing is sent until every field is right
     }
 
-    const fullMessage = `Reason: ${reason}\nPhone: ${phone}\n\n${message}`;
+    const fullMessage = `Reason: ${reason}\nPhone: ${phoneResult.value || 'Not given'}\n\n${message}`;
 
     if (emailjsReady) {
       submitBtn.disabled = true;

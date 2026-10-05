@@ -167,6 +167,15 @@
   .nav-dropdown.wide{
     min-width:460px; display:grid; grid-template-columns:1fr 1fr; gap:2px;
   }
+  /* Only the Services menu needs the extra room, for "Companionship and Social Time"
+     on one line. Kept off the shared rule so the right-hand Help & Feedback menu
+     never spills past the edge of the screen. */
+  .nav-dropdown.wide:has(a[href="companionship.html"]){min-width:520px;}
+  /* On narrower desktop screens the right-hand Help & Feedback menu would run past
+     the edge, so in that band only it opens leftwards from the item's right edge. */
+  @media (min-width:1081px) and (max-width:1200px){
+    .nav-item:last-of-type .nav-dropdown{left:auto; right:0;}
+  }
   .nav-item:hover .nav-dropdown,
   .nav-item:focus-within .nav-dropdown,
   .nav-item.dropdown-open .nav-dropdown{
@@ -343,8 +352,6 @@
     font-family:inherit; font-size:.95rem; background:var(--paper); color:var(--ink);
   }
   .field input:focus, .field select:focus, .field textarea:focus{border-color:var(--purple); outline:none;}
-  .field-row{display:grid; grid-template-columns:1fr 1fr; gap:16px;}
-  @media (max-width:560px){.field-row{grid-template-columns:1fr;}}
   .note-box{background:var(--green-tint); border-radius:12px; padding:14px 16px; font-size:.85rem; color:var(--green-deep); margin-bottom:20px;}
 
   /* Speak up routes */
@@ -734,3 +741,17 @@
   .toc a{color:var(--ink-soft); text-decoration:none; font-size:.92rem; line-height:2;}
   .toc a:hover{color:var(--purple-deep); text-decoration:underline;}
   @media (max-width:640px){.legal table, .legal thead, .legal tbody, .legal tr, .legal th, .legal td{display:block; width:100%;} .legal tr:first-child{display:none;} .legal td:first-child{font-weight:700; color:var(--purple-deep); background:var(--paper-alt); border-bottom:none;}}
+
+  /* ---------- FORM VALIDATION MESSAGES (contact form + enquiry chat) ---------- */
+  .field-error{color:#9B2F23; font-size:.84rem; font-weight:600; line-height:1.4; margin:6px 2px 0;}
+  .field-error:empty{display:none;}
+  .field input[aria-invalid="true"], .field textarea[aria-invalid="true"]{border-color:#B5493C;}
+  .chat-error{color:#9B2F23; font-size:.8rem; font-weight:600; line-height:1.4; padding:0 8px; align-self:flex-start;}
+  .chat-input-row-inline input[aria-invalid="true"]{border-color:#B5493C !important;}
+
+  /* ---------- TELEPHONE FIELD: country code + number side by side ---------- */
+  .phone-row{display:flex; gap:8px;}
+  .phone-row select{flex:0 0 44%; min-width:0; text-overflow:ellipsis;}
+  .phone-row input{flex:1; min-width:0;}
+  @media (max-width:420px){.phone-row{flex-direction:column;}.phone-row select{flex-basis:auto;}}
+  .field select[aria-invalid="true"]{border-color:#B5493C;}

@@ -201,19 +201,26 @@ Because the header/footer are duplicated across all files, do a **find-and-repla
 
 - **Enquiry chatbot and contact form** are both built to send via EmailJS, and will do so automatically as soon as the three placeholder values in `js/main.js` are filled in with real EmailJS credentials, see Section 7b for the exact steps. Until then, both fall back to opening the visitor's own email app with everything pre-filled (a `mailto:` link), so nothing is broken in the meantime, it's just not landing directly in an inbox yet.
 
-### Items marked for Dòchas to confirm before launch (per the navigation brief)
+### Details to add once Dòchas has confirmed them (none of this shows on the public site)
 
-These are marked directly in the page content, in *italics inside square brackets*, wherever they appear:
-- Confirmed service area wording (currently "Dundee and the surrounding area")
-- Care Inspectorate registration details and any required registration link or badge (`quality-and-regulation.html`)
-- Whether every listed service is within Dòchas's registration, staffing and current delivery capability
-- Current vacancy requirements, including experience, driving licence and vehicle requirements by role (`current-vacancies.html`)
-- Out-of-hours contact arrangements and emergency wording (`contact.html`)
-- Final privacy wording and technical handling for anonymous reports (`report-anonymously.html`)
-- Current external complaint contact details before publication (`escalation-routes.html`)
+The live pages contain **no placeholder text**: everything that was waiting on confirmation has been worded so each page reads as finished. When the details below are confirmed, add them to the page named. Nothing is broken or missing in the meantime.
 
-- **Care Inspectorate registration number** and **out-of-hours service details** are marked in the source document as still to be confirmed, search `contact.html` and `about.html` for these and add them once available.
-- **Careers vacancies**, the "View current vacancies" button currently links to the Contact page; once you have a jobs board or listing, point it there instead.
+**Privacy Policy** (`privacy-policy.html`), to do once reviewed by a solicitor / data protection adviser:
+- The policy is a general-purpose draft and **has not been legally reviewed**. Please have it reviewed before relying on it; in particular check the statements about practice, such as enquiries being deleted once dealt with, that no information is shared for marketing, and how long client and employment records are kept.
+- Optionally add a "Last updated" line under the page title, and the **ICO registration number** (Section 1) if applicable.
+- Section 6 (How long we keep it) can be given specific retention periods; for now it describes the approach in general terms.
+
+**Other pages**
+- **Care Inspectorate registration details** or number (`quality-and-regulation.html`, section "Our relationship with regulation").
+- **Out-of-hours contact arrangements** (`contact.html`, under the office hours).
+- **Vacancies** (`current-vacancies.html`): the page currently says no roles are listed. When roles exist, list them there, including experience, driving licence and vehicle requirements for each role.
+- **How anonymous reports are actually received.** The wording on `report-anonymously.html` is final, but the site has no way to send an anonymous report yet: the contact form and the enquiry chat both ask for a name and an email. Decide on a route (for example a phone line, a postal address or a dedicated form) and add it to that page.
+- **Service area wording**: currently one staff team based in Dundee, covering Dundee City and East Angus.
+- Confirm every listed service is within Dòchas's registration, staffing and current delivery capability.
+- **Reply time in the chat**: the chat header says "Here to help you take the first step". If Dòchas is happy to promise a reply time (for example "Usually replies within one working day"), it can be put back in the header of the chat widget, which is repeated in the HTML of each page.
+- **"View current vacancies"** on the Careers page links to the vacancies page; point it at a jobs board if you use one.
+
+**Before going live** (see also Section 9): the domain in `sitemap.xml` and `robots.txt` (`www.dochashomecare.co.uk`) must match the real address of the site, and the three EmailJS values in `js/main.js` need filling in (Section 7b).
 
 ---
 
@@ -228,6 +235,10 @@ To change a question, add a new one, or adjust the options:
 
 The professional referral path branches automatically based on the answer to the very first question, so it asks different follow-up questions for a personal enquiry vs. a professional making a referral.
 
+
+**Email checking.** Both forms refuse anything that doesn't look like a genuine email address (it must have a name part, one `@`, and a real-looking domain such as `example.com`). The rules live in one place, at the top of `js/main.js` (`isValidEmail`, `emailProblem`, `looksLikePhone`, `chatAnswerProblem`), so the contact form and the chatbot always agree. In the chatbot, add `validate: 'email'` to any text step that asks for an email, or `validate: 'emailOrPhone'` for a "phone or email" question; the step then won't move on until the answer is acceptable. The check is about *format* only: no website can prove an inbox really exists, so a made-up but well-formed address (such as `nobody@example.com`) will still be accepted. Phone numbers in the chat are not checked (only the professional-referral "phone or email" step looks for something number-like).
+
+**Phone numbers and country codes.** The contact form's Telephone field and the chat's "Best phone number" question both have a country-code list (United Kingdom pre-selected, then every country alphabetically). The table of dialling codes (`COUNTRY_CODES`, about 1.6 KB) sits at the top of `js/main.js`; country *names* are supplied by the visitor's browser, so nothing extra is downloaded. Whatever is typed is combined with the chosen code into one clear number: `07309 704101` with +44 becomes `+44 (0)7309 704101` (the "(0)" is the usual way of showing the first 0 is dropped when dialling from abroad), and a number typed in full, such as `+267 71 234 567`, is used as typed. The check is deliberately light: a number must have 7 to 15 digits and only digits, spaces, `+`, brackets, dashes and dots; it can't prove a number is reachable. To add the list to another chat question, set `phone: true` on its step. In the contact form the Telephone field is optional.
 ---
 
 ## 7b. Connecting the enquiry chatbot and contact form to a real inbox (EmailJS)
@@ -291,7 +302,7 @@ Two things to remember:
 
 **`privacy-policy.html`** is a working draft, styled to match the rest of the site, covering what information is collected (through the enquiry/contact forms and more broadly as a care provider), how it's used, and visitors' rights under UK GDPR. It is linked from the footer on every page.
 
-Search the file for text in *italics inside square brackets*, for example `[insert date]`, these mark details that still need to be filled in (a review date, ICO registration number if applicable, specific record retention periods, and confirmation of whether analytics/cookies are in use). **This is a template, not legal advice**, it's strongly recommended a solicitor or data protection advisor familiar with the care sector reviews it before the site goes live, given the sensitivity of the information involved (health and care details).
+The page no longer contains any placeholder text. **It is a general-purpose draft, not legal advice, and has not been reviewed by a solicitor.** Please have a solicitor or data protection adviser familiar with the care sector review it before relying on it. The specific things to check, and the optional details to add afterwards (a "Last updated" line, the ICO registration number, specific retention periods), are listed under "Details to add once Dòchas has confirmed them" in Section 7.
 
 **`sitemap.xml`** and **`robots.txt`** sit at the top level of the `dochas-website` folder (next to `index.html`). They tell search engines which pages exist and give permission to crawl them:
 - Both files currently use a placeholder domain (`https://www.dochashomecare.co.uk/`). **Before publishing, open both files and replace every instance of that placeholder with the real, live domain.**
