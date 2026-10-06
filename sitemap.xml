@@ -7,220 +7,218 @@
   roughly how important/how often each one changes, so they can crawl and
   index the site efficiently.
 
-  Before this works:
-  Replace every "https://www.dochashomecare.co.uk/" below with your real,
-  live domain once it's registered and connected to hosting. Search engines
-  will reject or ignore a sitemap pointing to a domain that doesn't resolve.
+  The addresses below use the live domain, https://dochashomecare.co.uk/ (no "www").
+  If the site ever moves to a different domain, replace every instance of it.
 
   After the domain is live:
-  Submit this file's URL (e.g. https://www.dochashomecare.co.uk/sitemap.xml)
+  Submit this file's URL (e.g. https://dochashomecare.co.uk/sitemap.xml)
   in Google Search Console under "Sitemaps", see the site documentation
   (docs/DOCUMENTATION.md) for the full publishing checklist.
 -->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
   <url>
-    <loc>https://www.dochashomecare.co.uk/about.html</loc>
+    <loc>https://dochashomecare.co.uk/about.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.dochashomecare.co.uk/care-assessment-and-planning.html</loc>
+    <loc>https://dochashomecare.co.uk/care-assessment-and-planning.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://www.dochashomecare.co.uk/careers-faqs.html</loc>
+    <loc>https://dochashomecare.co.uk/careers-faqs.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://www.dochashomecare.co.uk/careers.html</loc>
+    <loc>https://dochashomecare.co.uk/careers.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.dochashomecare.co.uk/community-support.html</loc>
+    <loc>https://dochashomecare.co.uk/community-support.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://www.dochashomecare.co.uk/companionship.html</loc>
+    <loc>https://dochashomecare.co.uk/companionship.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://www.dochashomecare.co.uk/contact.html</loc>
+    <loc>https://dochashomecare.co.uk/contact.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.dochashomecare.co.uk/current-vacancies.html</loc>
+    <loc>https://dochashomecare.co.uk/current-vacancies.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://www.dochashomecare.co.uk/daily-living-support.html</loc>
+    <loc>https://dochashomecare.co.uk/daily-living-support.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://www.dochashomecare.co.uk/enquire.html</loc>
+    <loc>https://dochashomecare.co.uk/enquire.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://www.dochashomecare.co.uk/escalation-routes.html</loc>
+    <loc>https://dochashomecare.co.uk/escalation-routes.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://www.dochashomecare.co.uk/faq.html</loc>
+    <loc>https://dochashomecare.co.uk/faq.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://www.dochashomecare.co.uk/fees-and-funding.html</loc>
+    <loc>https://dochashomecare.co.uk/fees-and-funding.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://www.dochashomecare.co.uk/hospital-discharge-support.html</loc>
+    <loc>https://dochashomecare.co.uk/hospital-discharge-support.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://www.dochashomecare.co.uk/how-care-starts.html</loc>
+    <loc>https://dochashomecare.co.uk/how-care-starts.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://www.dochashomecare.co.uk/index.html</loc>
+    <loc>https://dochashomecare.co.uk/index.html</loc>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://www.dochashomecare.co.uk/make-a-complaint.html</loc>
+    <loc>https://dochashomecare.co.uk/make-a-complaint.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://www.dochashomecare.co.uk/meals-and-nutrition.html</loc>
+    <loc>https://dochashomecare.co.uk/meals-and-nutrition.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://www.dochashomecare.co.uk/medication-support.html</loc>
+    <loc>https://dochashomecare.co.uk/medication-support.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://www.dochashomecare.co.uk/meet-the-founders.html</loc>
+    <loc>https://dochashomecare.co.uk/meet-the-founders.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://www.dochashomecare.co.uk/mission-and-vision.html</loc>
+    <loc>https://dochashomecare.co.uk/mission-and-vision.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://www.dochashomecare.co.uk/mobility-support.html</loc>
+    <loc>https://dochashomecare.co.uk/mobility-support.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://www.dochashomecare.co.uk/our-story.html</loc>
+    <loc>https://dochashomecare.co.uk/our-story.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://www.dochashomecare.co.uk/personal-care.html</loc>
+    <loc>https://dochashomecare.co.uk/personal-care.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://www.dochashomecare.co.uk/privacy-policy.html</loc>
+    <loc>https://dochashomecare.co.uk/privacy-policy.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.3</priority>
   </url>
   <url>
-    <loc>https://www.dochashomecare.co.uk/professional-referrals.html</loc>
+    <loc>https://dochashomecare.co.uk/professional-referrals.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://www.dochashomecare.co.uk/quality-and-regulation.html</loc>
+    <loc>https://dochashomecare.co.uk/quality-and-regulation.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://www.dochashomecare.co.uk/raise-a-concern.html</loc>
+    <loc>https://dochashomecare.co.uk/raise-a-concern.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://www.dochashomecare.co.uk/recruitment-process.html</loc>
+    <loc>https://dochashomecare.co.uk/recruitment-process.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://www.dochashomecare.co.uk/report-anonymously.html</loc>
+    <loc>https://dochashomecare.co.uk/report-anonymously.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://www.dochashomecare.co.uk/respite-and-family-support.html</loc>
+    <loc>https://dochashomecare.co.uk/respite-and-family-support.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://www.dochashomecare.co.uk/safeguarding-concern.html</loc>
+    <loc>https://dochashomecare.co.uk/safeguarding-concern.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://www.dochashomecare.co.uk/send-a-compliment.html</loc>
+    <loc>https://dochashomecare.co.uk/send-a-compliment.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://www.dochashomecare.co.uk/services.html</loc>
+    <loc>https://dochashomecare.co.uk/services.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://www.dochashomecare.co.uk/speak-up.html</loc>
+    <loc>https://dochashomecare.co.uk/speak-up.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://www.dochashomecare.co.uk/the-dochas-difference.html</loc>
+    <loc>https://dochashomecare.co.uk/the-dochas-difference.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://www.dochashomecare.co.uk/the-dochas-way.html</loc>
+    <loc>https://dochashomecare.co.uk/the-dochas-way.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://www.dochashomecare.co.uk/training-and-development.html</loc>
+    <loc>https://dochashomecare.co.uk/training-and-development.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://www.dochashomecare.co.uk/what-dochas-means.html</loc>
+    <loc>https://dochashomecare.co.uk/what-dochas-means.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://www.dochashomecare.co.uk/whistleblowing.html</loc>
+    <loc>https://dochashomecare.co.uk/whistleblowing.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://www.dochashomecare.co.uk/who-we-are.html</loc>
+    <loc>https://dochashomecare.co.uk/who-we-are.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>

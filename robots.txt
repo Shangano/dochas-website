@@ -2,9 +2,9 @@
 # Tells search engine crawlers they're welcome to index the whole site,
 # and points them to the sitemap for a full list of pages.
 #
-# Remember to update the sitemap URL below once the real domain is live.
+# The sitemap URL below uses the live domain.
 
 User-agent: *
 Allow: /
 
-Sitemap: https://www.dochashomecare.co.uk/sitemap.xml
+Sitemap: https://dochashomecare.co.uk/sitemap.xml
